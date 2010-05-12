@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'test/unit'
 require 'shoulda'
+require 'characterizable'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
@@ -20,12 +21,16 @@ class Person
     @date_of_birth = options[:date_of_birth] if options[:date_of_birth] && options[:date_of_birth].is_a?(Date)
   end
   
-  def attributes
-    { :name => name, :age => age, :date_of_birth => date_of_birth}.delete_if { |key, val| val.nil? }
+  include Characterizable
+  
+  characterize do
+    has :name
+    has :age
+    has :date_of_birth
   end
   
   include Leap
-  decide :lucky_number, :with => :attributes do
+  decide :lucky_number, :with => :characteristics do
     committee :lucky_number do
       quorum 'super magic method', :needs => [:magic_integer, :magic_float] do |characteristics|
         characteristics[:magic_integer] + characteristics[:magic_float]
