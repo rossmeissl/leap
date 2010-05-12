@@ -3,8 +3,8 @@ module Leap
     attr_reader :name, :requirements, :supplements, :process
     def initialize(name, options, blk)
       @name = name
-      @requirements = Array.wrap(options[:needs])
-      @supplements = Array.wrap(options[:appreciates])
+      @requirements = Array.wrap options[:needs]
+      @supplements = Array.wrap options[:appreciates]
       @process = blk
     end
     
