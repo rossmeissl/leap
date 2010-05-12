@@ -20,19 +20,19 @@ class Person
     @date_of_birth = options[:date_of_birth] if options[:date_of_birth] && options[:date_of_birth].is_a?(Date)
   end
   
-  def characteristics
+  def attributes
     { :name => name, :age => age, :date_of_birth => date_of_birth}.delete_if { |key, val| val.nil? }
   end
   
   include Decider
-  decide :lucky_number, :with => :characteristics do
+  decide :lucky_number, :with => :attributes do
     committee :lucky_number do
       quorum 'super magic method', :needs => [:magic_integer, :magic_float] do |characteristics|
         characteristics[:magic_integer] + characteristics[:magic_float]
       end
       
       quorum 'normal magic method', :needs => :magic_integer do |characteristics|
-        characteristics[:magic_integer] ^ 2
+        characteristics[:magic_integer] ** 2
       end
     end
     
