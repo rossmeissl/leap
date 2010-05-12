@@ -5,15 +5,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "decider"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{A heuristics engine for your Ruby objects}
+    gem.description = %Q{A heuristics engine for your Ruby objects}
     gem.email = "andy@rossmeissl.net"
     gem.homepage = "http://github.com/rossmeissl/decider"
-    gem.authors = ["Andy Rossmeissl"]
+    gem.authors = ["Andy Rossmeissl", "Seamus Abshere"]
     gem.add_development_dependency "shoulda", ">= 0"
     gem.add_dependency 'blockenspiel'
     gem.add_dependency 'activesupport', '>=2.3.5'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
