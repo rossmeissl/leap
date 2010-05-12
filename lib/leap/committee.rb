@@ -8,11 +8,9 @@ module Leap
     end
     
     def report(characteristics, considerations)
-      quorums.detect do |quorum|
+      quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics
-        if conclusion = quorum.acknowledge(characteristics, considerations)
-          break conclusion
-        end
+        quorum.acknowledge characteristics, considerations
       end
     end
     
