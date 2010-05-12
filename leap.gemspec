@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{leap}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andy Rossmeissl", "Seamus Abshere"]
@@ -23,8 +23,10 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "leap.gemspec",
      "lib/leap.rb",
      "lib/leap/committee.rb",
+     "lib/leap/core_ext.rb",
      "lib/leap/decision.rb",
      "lib/leap/quorum.rb",
      "lib/leap/subject.rb",
