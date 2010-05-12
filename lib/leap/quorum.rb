@@ -13,7 +13,8 @@ module Leap
     end
     
     def acknowledge(characteristics, considerations)
-      process.call(*considerations.unshift(characteristics)[0...process.arity])
+      considerations.unshift characteristics
+      process.call *considerations[0...process.arity]
     end
   end
 end
