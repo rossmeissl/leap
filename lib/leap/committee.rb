@@ -14,9 +14,9 @@ module Leap
       end
     end
     
-    include ::Blockenspiel::DSL
+    include Blockenspiel::DSL
     def quorum(name, options = {}, &blk)
-      @quorums << ::Leap::Quorum.new(name, options, blk)
+      @quorums << Quorum.new(name, options, blk)
     end
     
     def default(&blk)

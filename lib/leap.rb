@@ -15,6 +15,6 @@ require 'leap/decision'
 
 module Leap
   def self.included(base)
-    base.extend ::Leap::Subject
+    base.extend Subject
   end
 end

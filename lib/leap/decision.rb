@@ -17,11 +17,11 @@ module Leap
       end[goal]
     end
     
-    include ::Blockenspiel::DSL
+    include Blockenspiel::DSL
     def committee(name, &blk)
-      committee = ::Leap::Committee.new(name)
-      @committees << committee
-      ::Blockenspiel.invoke blk, committee
+      new_committee = Committee.new(name)
+      @committees << new_committee
+      Blockenspiel.invoke blk, new_committee
     end
   end
 end
