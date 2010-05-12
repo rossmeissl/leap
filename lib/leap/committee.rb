@@ -1,4 +1,4 @@
-module Decider
+module Leap
   class Committee
     attr_reader :name, :quorums
     
@@ -18,7 +18,7 @@ module Decider
     
     include ::Blockenspiel::DSL
     def quorum(name, options = {}, &blk)
-      @quorums << ::Decider::Quorum.new(name, options, blk)
+      @quorums << ::Leap::Quorum.new(name, options, blk)
     end
     
     def default(&blk)

@@ -1,4 +1,4 @@
-module Decider
+module Leap
   class Quorum
     attr_reader :name, :requirements, :supplements, :process
     def initialize(name, options, blk)

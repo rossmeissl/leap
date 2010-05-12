@@ -7,13 +7,13 @@ require 'active_support/version'
 end if ActiveSupport::VERSION::MAJOR == 3
 require 'blockenspiel'
 
-require 'decider/subject'
-require 'decider/committee'
-require 'decider/quorum'
-require 'decider/decision'
+require 'leap/subject'
+require 'leap/committee'
+require 'leap/quorum'
+require 'leap/decision'
 
-module Decider
+module Leap
   def self.included(base)
-    base.extend ::Decider::Subject
+    base.extend ::Leap::Subject
   end
 end

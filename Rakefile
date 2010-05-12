@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "decider"
+    gem.name = "leap"
     gem.summary = %Q{A heuristics engine for your Ruby objects}
-    gem.description = %Q{A heuristics engine for your Ruby objects}
+    gem.description = %Q{Leap to conclusions}
     gem.email = "andy@rossmeissl.net"
-    gem.homepage = "http://github.com/rossmeissl/decider"
+    gem.homepage = "http://github.com/rossmeissl/leap"
     gem.authors = ["Andy Rossmeissl", "Seamus Abshere"]
     gem.add_development_dependency "shoulda", ">= 0"
     gem.add_dependency 'blockenspiel'

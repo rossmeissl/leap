@@ -1,4 +1,4 @@
-module Decider
+module Leap
   class Decision
     attr_reader :goal, :signature_method, :committees
     
@@ -19,7 +19,7 @@ module Decider
     
     include ::Blockenspiel::DSL
     def committee(name, &blk)
-      committee = ::Decider::Committee.new(name)
+      committee = ::Leap::Committee.new(name)
       @committees << committee
       ::Blockenspiel.invoke blk, committee
     end

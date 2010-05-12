@@ -4,7 +4,7 @@ require 'shoulda'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'decider'
+require 'leap'
 
 class Test::Unit::TestCase
 end
@@ -24,7 +24,7 @@ class Person
     { :name => name, :age => age, :date_of_birth => date_of_birth}.delete_if { |key, val| val.nil? }
   end
   
-  include Decider
+  include Leap
   decide :lucky_number, :with => :attributes do
     committee :lucky_number do
       quorum 'super magic method', :needs => [:magic_integer, :magic_float] do |characteristics|
