@@ -7,6 +7,7 @@ require 'active_support/version'
 end if ActiveSupport::VERSION::MAJOR == 3
 require 'blockenspiel'
 
+require 'leap/core_ext'
 require 'leap/subject'
 require 'leap/committee'
 require 'leap/quorum'
