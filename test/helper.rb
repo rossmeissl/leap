@@ -62,3 +62,31 @@ class Person
     end
   end
 end
+
+class Place
+  attr_reader :name
+  attr_reader :seasonality
+  
+  def initialize(options = {})
+    @name = options[:name] if options[:name]
+    @seasonality = options[:seasonality] if options[:seasonality]
+  end
+  
+  include Characterizable
+  characterize do
+    has :name
+    has :seasonality
+  end
+  
+  include Leap
+  decide :weather, :with => :characteristics do
+    committee :weather do
+      quorum 'from seasonality', :needs => :seasonality do |characteristics, season|
+        characteristics[:seasonality][season]
+      end
+      quorum 'default' do
+        :decent
+      end
+    end
+  end
+end
