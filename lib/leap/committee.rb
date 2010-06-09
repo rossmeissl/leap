@@ -10,7 +10,7 @@ module Leap
     def report(characteristics, considerations)
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics
-        quorum.acknowledge characteristics, considerations
+        quorum.acknowledge characteristics, considerations.dup
       end
     end
     
