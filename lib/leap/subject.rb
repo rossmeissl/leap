@@ -9,8 +9,9 @@ module Leap
       decisions[goal] = ::Leap::Decision.new goal, options
       Blockenspiel.invoke(blk, decisions[goal])
       define_method goal do |*considerations|
-        @minutes = self.class.decisions[goal].make(send(self.class.decisions[goal].signature_method), *considerations)
-        @minutes[goal]
+        @minutes ||= {}
+        @minutes[goal] = self.class.decisions[goal].make(send(self.class.decisions[goal].signature_method), *considerations)
+        @minutes[goal][goal]
       end
     end
   end
