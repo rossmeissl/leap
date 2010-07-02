@@ -19,6 +19,15 @@ class TestLeap < Test::Unit::TestCase
     should 'indeed have a lucky number' do
       assert_equal 36, @person.lucky_number
     end
+    
+    should 'nevertheless remember how his lucky number was determined' do
+      @person.lucky_number # make the decision
+      assert_equal({ :magic_integer => 6, :lucky_number => 36, :age => 5}, @person.minutes)
+    end
+    
+    should 'but only as long as it had actually been determined' do
+      assert_nil @person.minutes
+    end
   end
   
   context "A generic place" do
