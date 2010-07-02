@@ -1,6 +1,6 @@
 module Leap
   class Decision
-    attr_reader :goal, :signature_method, :committees
+    attr_reader :goal, :signature_method, :committees, :minutes
     
     def initialize(goal, options)
       @goal = goal
@@ -14,7 +14,7 @@ module Leap
           characteristics[committee.name] = report
         end
         characteristics
-      end[goal]
+      end
     end
     
     include ::Blockenspiel::DSL
