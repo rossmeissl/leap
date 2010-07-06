@@ -12,7 +12,8 @@ require 'leap/subject'
 require 'leap/committee'
 require 'leap/quorum'
 require 'leap/decision'
-require 'leap/minutes'
+require 'leap/report'
+require 'leap/deliberation'
 
 module Leap
   def self.included(base)

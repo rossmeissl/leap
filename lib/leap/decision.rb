@@ -9,11 +9,12 @@ module Leap
     end
     
     def make(characteristics, *considerations)
-      committees.reverse.inject(characteristics) do |characteristics, committee|
-        if report = committee.report(characteristics, considerations)
-          characteristics[committee.name] = report
+      committees.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
+        if report = committee.report(deliberation.characteristics, considerations)
+          deliberation.reports[committee.name] = report
+          deliberation.characteristics[committee.name] = deliberation.reports[committee.name].conclusion
         end
-        characteristics
+        deliberation
       end
     end
     

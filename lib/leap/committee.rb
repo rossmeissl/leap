@@ -10,7 +10,9 @@ module Leap
     def report(characteristics, considerations)
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics
-        quorum.acknowledge characteristics, considerations.dup
+        if conclusion = quorum.acknowledge(characteristics, considerations.dup)
+          ::Leap::Report.new quorum => conclusion
+        end
       end
     end
     
