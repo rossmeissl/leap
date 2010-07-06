@@ -11,7 +11,7 @@ module Leap
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics
         if conclusion = quorum.acknowledge(characteristics, considerations.dup)
-          ::Leap::Report.new quorum => conclusion
+          ::Leap::Report.new self, quorum => conclusion
         end
       end
     end

@@ -23,7 +23,7 @@ class TestLeap < Test::Unit::TestCase
     should 'nevertheless remember how his lucky number was determined' do
       @person.lucky_number # make the decision
       assert_equal({ :magic_integer => 6, :lucky_number => 36, :age => 5}, @person.deliberations[:lucky_number].characteristics)
-      assert_equal 'ninja style', @person.deliberations[:lucky_number].reports[:magic_integer].quorum.name
+      assert_equal 'ninja style', @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :magic_integer }.quorum.name
     end
     
     should 'but only as long as it had actually been determined' do

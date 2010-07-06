@@ -5,7 +5,7 @@ module Leap
     
     def initialize(characteristics)
       self.characteristics = characteristics
-      self.reports = {}
+      self.reports = []
     end
     
     def [](characteristic)
