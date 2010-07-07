@@ -14,11 +14,13 @@ class Person
   attr_reader :name
   attr_reader :age
   attr_reader :date_of_birth
+  attr_reader :magic_integer
   
   def initialize(options = {})
     @name = options[:name].upcase if options[:name] && options[:name].is_a?(String)
     @age = options[:age].round if options[:age] && options[:age].is_a?(Numeric) && options[:age].round > 0
     @date_of_birth = options[:date_of_birth] if options[:date_of_birth] && options[:date_of_birth].is_a?(Date)
+    @magic_integer = options[:magic_integer] if options[:magic_integer] && options[:magic_integer].is_a?(Integer)
   end
   
   include Characterizable
@@ -27,6 +29,7 @@ class Person
     has :name
     has :age
     has :date_of_birth
+    has :magic_integer
   end
   
   include Leap

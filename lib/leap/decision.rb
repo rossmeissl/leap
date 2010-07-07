@@ -9,7 +9,7 @@ module Leap
     end
     
     def make(characteristics, *considerations)
-      committees.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
+      committees.reject { |c| characteristics.keys.include? c.name }.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
         if report = committee.report(deliberation.characteristics, considerations)
           deliberation.reports.unshift report
           deliberation.characteristics[committee.name] = report.conclusion

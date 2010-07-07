@@ -36,6 +36,16 @@ class TestLeap < Test::Unit::TestCase
     end
   end
   
+  context "A clever aged person" do
+    setup do
+      @person = Person.new :magic_integer => 42, :age => 5
+    end
+    
+    should 'be able to use his own magic integer in determining his lucky number' do
+      assert_equal 1764, @person.lucky_number
+    end
+  end
+  
   context "A generic place" do
     setup do
       @place = Place.new
