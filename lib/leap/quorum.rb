@@ -16,5 +16,9 @@ module Leap
       considerations.unshift characteristics
       process.call(*considerations[0...process.arity])
     end
+    
+    def characteristics
+      requirements + supplements
+    end
   end
 end

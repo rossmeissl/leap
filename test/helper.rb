@@ -60,6 +60,12 @@ class Person
         ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.first) / ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.last) 
       end
     end
+    
+    committee :litmus do
+      quorum 'litmus', :appreciates => :dummy do |characteristics|
+        characteristics
+      end
+    end
   end
 end
 
