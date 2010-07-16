@@ -36,10 +36,10 @@ class Person
   decide :lucky_number, :with => :characteristics do
     committee :lucky_number do
       quorum 'super magic method', :needs => [:magic_integer, :magic_float] do |characteristics|
-        characteristics[:magic_integer] + characteristics[:magic_float]
+        characteristics[:magic_integer] + characteristics[:magic_float].ceil
       end
       
-      quorum 'normal magic method', :needs => :magic_integer do |characteristics|
+      quorum 'normal magic method', :needs => :magic_integer, :complies => :ipa do |characteristics|
         characteristics[:magic_integer] ** 2
       end
     end
@@ -60,7 +60,7 @@ class Person
     
     committee :magic_float do
       quorum 'ancient recipe', :needs => :name do |characteristics|
-        ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.first) / ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.last) 
+        ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.first).to_f / ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.last).to_f 
       end
     end
     

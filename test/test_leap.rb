@@ -46,6 +46,20 @@ class TestLeap < Test::Unit::TestCase
     end
   end
   
+  context "A named person" do
+    setup do
+      @person = Person.new :name => 'Matz'
+    end
+    
+    should 'have access to the super magic method' do
+      assert_equal 1, @person.lucky_number
+    end
+    
+    should 'be able to stay in compliance with International Psychics Association guidelines' do
+      assert_equal 0, @person.lucky_number(:comply => :ipa)
+    end
+  end
+  
   context "A generic place" do
     setup do
       @place = Place.new
