@@ -53,7 +53,7 @@ class Person
         characteristics[:age] + 1
       end
 
-      default do
+      default :complies => :ipa do
         0
       end
     end

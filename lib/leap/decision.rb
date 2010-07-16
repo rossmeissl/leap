@@ -9,8 +9,9 @@ module Leap
     end
     
     def make(characteristics, *considerations)
+      options = considerations.extract_options!
       committees.reject { |c| characteristics.keys.include? c.name }.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
-        if report = committee.report(deliberation.characteristics, considerations)
+        if report = committee.report(deliberation.characteristics, considerations, options)
           deliberation.reports.unshift report
           deliberation.characteristics[committee.name] = report.conclusion
         end

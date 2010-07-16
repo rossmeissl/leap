@@ -7,9 +7,9 @@ module Leap
       @quorums = []
     end
     
-    def report(characteristics, considerations)
+    def report(characteristics, considerations, options = {})
       quorums.grab do |quorum|
-        next unless quorum.satisfied_by? characteristics
+        next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
           ::Leap::Report.new self, quorum => conclusion
         end
@@ -21,8 +21,8 @@ module Leap
       @quorums << ::Leap::Quorum.new(name, options, blk)
     end
     
-    def default(&blk)
-      quorum 'default', {}, &blk
+    def default(options = {}, &blk)
+      quorum 'default', options, &blk
     end
   end
 end
