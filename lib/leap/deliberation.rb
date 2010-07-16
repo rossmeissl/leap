@@ -11,5 +11,12 @@ module Leap
     def [](characteristic)
       characteristics[characteristic]
     end
+    
+    def compliance
+      reports.map(&:quorum).map(&:compliance).inject do |memo, c|
+        next c unless memo
+        memo & c
+      end
+    end
   end
 end
