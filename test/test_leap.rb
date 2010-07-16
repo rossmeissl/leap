@@ -9,6 +9,11 @@ class TestLeap < Test::Unit::TestCase
     should 'still have a lucky number' do
       assert_equal 0, @person.lucky_number
     end
+    
+    should 'naturally receive an International Psychics Association-compliant lucky number' do
+      @person.lucky_number
+      assert_equal [:ipa], @person.deliberations[:lucky_number].compliance
+    end
   end
   
   context "An aged person" do
@@ -33,6 +38,11 @@ class TestLeap < Test::Unit::TestCase
     should 'only give quorums what they ask for' do
       @person.lucky_number # make the decision
       assert_equal({}, @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :litmus }.conclusion)
+    end
+    
+    should 'not receive an International Psychics Association-compliant lucky number unless he asks for it' do
+      @person.lucky_number
+      assert_equal [], @person.deliberations[:lucky_number].compliance
     end
   end
   

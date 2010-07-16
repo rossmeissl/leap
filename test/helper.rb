@@ -65,7 +65,7 @@ class Person
     end
     
     committee :litmus do
-      quorum 'litmus', :appreciates => :dummy do |characteristics|
+      quorum 'litmus', :appreciates => :dummy, :complies => :ipa do |characteristics|
         characteristics
       end
     end
