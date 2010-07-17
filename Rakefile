@@ -11,9 +11,9 @@ begin
     gem.homepage = "http://github.com/rossmeissl/leap"
     gem.authors = ["Andy Rossmeissl", "Seamus Abshere"]
     gem.add_development_dependency "shoulda", ">= 0"
-    gem.add_dependency "characterizable", ">=0.0.10"
-    gem.add_dependency 'blockenspiel'
-    gem.add_dependency 'activesupport', '= 3.0.0.beta4'
+    gem.add_dependency "characterizable", ">=0.0.11"
+    gem.add_dependency 'blockenspiel', '>=0.3.2'
+    gem.add_dependency 'activesupport', '>=3.0.0.beta2'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
