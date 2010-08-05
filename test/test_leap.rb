@@ -96,7 +96,7 @@ class TestLeap < Test::Unit::TestCase
     end
     
     should 'be impossible to make' do
-      assert_raise do
+      assert_raise ::Leap::NoSolutionError do
         @thing.anything
       end
     end
