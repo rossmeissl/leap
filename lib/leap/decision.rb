@@ -4,7 +4,7 @@ module Leap
     
     def initialize(goal, options)
       @goal = goal
-      @signature_method = options[:with] || {}
+      @signature_method = options[:with]
       @committees = []
     end
     

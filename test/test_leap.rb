@@ -89,4 +89,16 @@ class TestLeap < Test::Unit::TestCase
       assert_equal :warm, @place.weather(:summer)
     end
   end
+  
+  context "An impossible decision" do
+    setup do
+      @thing = Thing.new
+    end
+    
+    should 'be impossible to make' do
+      assert_raise do
+        @thing.anything
+      end
+    end
+  end
 end

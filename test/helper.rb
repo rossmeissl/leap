@@ -99,3 +99,11 @@ class Place
     end
   end
 end
+
+class Thing
+  include Leap
+  def characteristics; {} end
+  decide :anything, :with => :characteristics do
+    committee(:anything) {}
+  end
+end

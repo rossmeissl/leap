@@ -20,4 +20,6 @@ module Leap
   def self.included(base)
     base.extend ::Leap::Subject
   end
+  
+  class NoSolutionError < ArgumentError; end
 end
