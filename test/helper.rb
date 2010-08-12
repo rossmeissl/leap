@@ -102,8 +102,7 @@ end
 
 class Thing
   include Leap
-  def characteristics; {} end
-  decide :anything, :with => :characteristics do
+  decide :anything do
     committee(:anything) {}
   end
 end
