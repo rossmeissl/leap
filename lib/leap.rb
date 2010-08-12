@@ -15,6 +15,7 @@ require 'leap/quorum'
 require 'leap/decision'
 require 'leap/report'
 require 'leap/deliberation'
+require 'leap/implicit_attributes'
 
 module Leap
   def self.included(base)

@@ -3,6 +3,7 @@ module Leap
     def self.extended(base)
       base.instance_variable_set :@decisions, {}
       base.send :attr_reader, :deliberations
+      base.send :include, ::Leap::ImplicitAttributes
     end
     attr_reader :decisions
     def decide(goal, options = {}, &blk)

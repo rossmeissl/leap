@@ -81,14 +81,8 @@ class Place
     @seasonality = options[:seasonality] if options[:seasonality]
   end
   
-  include Characterizable
-  characterize do
-    has :name
-    has :seasonality
-  end
-  
   include Leap
-  decide :weather, :with => :characteristics do
+  decide :weather do
     committee :weather do
       quorum 'from seasonality', :needs => :seasonality do |characteristics, season|
         characteristics[:seasonality][season]
