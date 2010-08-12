@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{leap}
-  s.version = "0.4.2"
+  s.version = "0.4.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andy Rossmeissl", "Seamus Abshere"]
-  s.date = %q{2010-08-05}
+  s.date = %q{2010-08-12}
   s.description = %q{Leap to conclusions}
   s.email = %q{andy@rossmeissl.net}
   s.extra_rdoc_files = [
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/leap/core_ext.rb",
      "lib/leap/decision.rb",
      "lib/leap/deliberation.rb",
+     "lib/leap/implicit_attributes.rb",
      "lib/leap/quorum.rb",
      "lib/leap/report.rb",
      "lib/leap/subject.rb",
@@ -51,7 +52,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_runtime_dependency(%q<characterizable>, [">= 0.0.11"])
+      s.add_development_dependency(%q<characterizable>, [">= 0.0.11"])
       s.add_runtime_dependency(%q<blockenspiel>, [">= 0.3.2"])
       s.add_runtime_dependency(%q<activesupport>, [">= 3.0.0.beta2"])
     else
