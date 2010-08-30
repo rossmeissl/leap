@@ -124,7 +124,7 @@ class TestLeap < Test::Unit::TestCase
       assert_equal @idea.value, 10
     end
     
-    should 'blow up with zero clarity' do
+    should 'blow up with zero brilliance' do
       @idea.brilliance = 0
       assert_raise ::Leap::UnexpectedConclusionError do
         @idea.value
@@ -136,8 +136,20 @@ class TestLeap < Test::Unit::TestCase
       assert_equal @idea.value, 10
     end
     
-    should 'blow up with zero brilliance' do
+    should 'blow up with zero simplicity' do
       @idea.simplicity = 0
+      assert_raise ::Leap::UnexpectedConclusionError do
+        @idea.value
+      end
+    end
+
+    should 'be as valuable as its genius' do
+      @idea.genius = 10
+      assert_equal @idea.value, 10
+    end
+    
+    should 'blow up with zero genius' do
+      @idea.genius = 0
       assert_raise ::Leap::UnexpectedConclusionError do
         @idea.value
       end

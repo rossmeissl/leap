@@ -34,13 +34,15 @@ module Leap
     private
     def expects?(conclusion)
       return true unless @expectation
-      case expectation
+      test = ::Leap::Enforcer.techniques[expectation] if ::Leap::Enforcer.techniques
+      test ||= expectation
+      case test
       when Symbol
-        conclusion.respond_to?(expectation) && conclusion.send(expectation)
+        conclusion.respond_to?(test) && conclusion.send(test)
       when Proc
-        expectation.call conclusion
-      else
-        expectation === conclusion
+        test.call conclusion
+      when Class, Module
+        conclusion.is_a? test
       end
     end
   end

@@ -16,6 +16,7 @@ require 'leap/decision'
 require 'leap/report'
 require 'leap/deliberation'
 require 'leap/implicit_attributes'
+require 'leap/enforcer'
 
 module Leap
   def self.included(base)
