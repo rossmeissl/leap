@@ -101,12 +101,11 @@ class Thing
   end
 end
 
-class Idea < Struct.new(:clarity)
-  attr_accessor :clarity
-
+class Idea < Struct.new(:clarity, :brilliance)
   include Characterizable
   characterize do
     has :clarity
+    has :brilliance
   end
   
   include Leap
@@ -114,6 +113,11 @@ class Idea < Struct.new(:clarity)
     committee :value => Fixnum do
       quorum 'from clarity', :needs => :clarity do |characteristics|
         characteristics[:clarity]
+      end
+    end
+    committee :clarity => :nonzero? do
+      quorum 'from brilliance', :needs => :brilliance do |characteristics|
+        characteristics[:brilliance]
       end
     end
   end

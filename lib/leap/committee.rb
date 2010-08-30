@@ -34,7 +34,12 @@ module Leap
     private
     def expects?(conclusion)
       return true unless @expectation
-      expectation === conclusion
+      case expectation
+      when Symbol
+        conclusion.respond_to?(expectation) && conclusion.send(expectation)
+      else
+        expectation === conclusion
+      end
     end
   end
 end

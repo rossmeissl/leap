@@ -118,5 +118,17 @@ class TestLeap < Test::Unit::TestCase
         @idea.value
       end
     end
+    
+    should 'be as valuable as its brilliance' do
+      @idea.brilliance = 10
+      assert_equal @idea.value, 10
+    end
+    
+    should 'blow up with zero clarity' do
+      @idea.brilliance = 0
+      assert_raise ::Leap::UnexpectedConclusionError do
+        @idea.value
+      end
+    end
   end
 end
