@@ -100,3 +100,21 @@ class Thing
     committee(:anything) {}
   end
 end
+
+class Idea < Struct.new(:clarity)
+  attr_accessor :clarity
+
+  include Characterizable
+  characterize do
+    has :clarity
+  end
+  
+  include Leap
+  decide :value, :with => :characteristics do
+    committee :value => Fixnum do
+      quorum 'from clarity', :needs => :clarity do |characteristics|
+        characteristics[:clarity]
+      end
+    end
+  end
+end

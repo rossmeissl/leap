@@ -101,4 +101,22 @@ class TestLeap < Test::Unit::TestCase
       end
     end
   end
+  
+  context "An idea" do
+    setup do
+      @idea = Idea.new
+    end
+    
+    should 'be as valuable as its clarity' do
+      @idea.clarity = 10
+      asser_equal @idea.value, 10
+    end
+    
+    should 'blow up with non-numeric clarity' do
+      @idea.clarity = :transparent
+      assert_raise ::Leap::UnexpectedConclusionError do
+        @idea.value
+      end
+    end
+  end
 end
