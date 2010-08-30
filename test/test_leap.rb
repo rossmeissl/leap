@@ -130,5 +130,17 @@ class TestLeap < Test::Unit::TestCase
         @idea.value
       end
     end
+    
+    should 'be as valuable as its simplicity' do
+      @idea.simplicity = 10
+      assert_equal @idea.value, 10
+    end
+    
+    should 'blow up with zero brilliance' do
+      @idea.simplicity = 0
+      assert_raise ::Leap::UnexpectedConclusionError do
+        @idea.value
+      end
+    end
   end
 end

@@ -101,11 +101,12 @@ class Thing
   end
 end
 
-class Idea < Struct.new(:clarity, :brilliance)
+class Idea < Struct.new(:clarity, :brilliance, :simplicity)
   include Characterizable
   characterize do
     has :clarity
     has :brilliance
+    has :simplicity
   end
   
   include Leap
@@ -118,6 +119,11 @@ class Idea < Struct.new(:clarity, :brilliance)
     committee :clarity => :nonzero? do
       quorum 'from brilliance', :needs => :brilliance do |characteristics|
         characteristics[:brilliance]
+      end
+    end
+    committee :brilliance => lambda { |conclusion| conclusion > 9 && conclusion < 11  && conclusion.is_a?(Integer)} do
+      quorum 'from simplicity', :needs => :simplicity do |characteristics|
+        characteristics[:simplicity]
       end
     end
   end

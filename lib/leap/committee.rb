@@ -37,6 +37,8 @@ module Leap
       case expectation
       when Symbol
         conclusion.respond_to?(expectation) && conclusion.send(expectation)
+      when Proc
+        expectation.call conclusion
       else
         expectation === conclusion
       end
