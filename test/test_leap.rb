@@ -109,7 +109,7 @@ class TestLeap < Test::Unit::TestCase
     
     should 'be as valuable as its clarity' do
       @idea.clarity = 10
-      asser_equal @idea.value, 10
+      assert_equal @idea.value, 10
     end
     
     should 'blow up with non-numeric clarity' do

@@ -23,4 +23,5 @@ module Leap
   end
   
   class NoSolutionError < ArgumentError; end
+  class UnexpectedConclusionError < StandardError; end
 end

@@ -1,9 +1,14 @@
 module Leap
   class Committee
-    attr_reader :name, :quorums
+    attr_reader :name, :quorums, :expectation
     
     def initialize(name)
-      @name = name
+      case name
+      when Hash
+        @name, @expectation = *name.first
+      else
+        @name = name
+      end
       @quorums = []
     end
     
@@ -11,6 +16,7 @@ module Leap
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
+          raise ::Leap::UnexpectedConclusionError unless expects? conclusion
           ::Leap::Report.new self, quorum => conclusion
         end
       end
@@ -23,6 +29,12 @@ module Leap
     
     def default(options = {}, &blk)
       quorum 'default', options, &blk
+    end
+    
+    private
+    def expects?(conclusion)
+      return true unless @expectation
+      expectation === conclusion
     end
   end
 end
