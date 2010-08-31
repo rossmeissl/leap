@@ -111,7 +111,7 @@ class Idea < Struct.new(:clarity, :brilliance, :simplicity, :genius)
   end
   
   include Leap
-  Leap::Whip.enforce :confirmed do |conclusion|
+  Leap::Whip.enforce :confirmed, :reconfirmed do |conclusion|
     conclusion == 10
   end
   
