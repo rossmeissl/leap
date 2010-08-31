@@ -34,16 +34,19 @@ module Leap
     private
     def expects?(conclusion)
       return true unless @expectation
-      test = ::Leap::Enforcer.techniques[expectation] if ::Leap::Enforcer.techniques
-      test ||= expectation
-      case test
+      litmus = whip.regulations[expectation] || expectation
+      case litmus
       when Symbol
-        conclusion.respond_to?(test) && conclusion.send(test)
+        conclusion.respond_to?(litmus) && conclusion.send(litmus)
       when Proc
-        test.call conclusion
+        litmus.call conclusion
       when Class, Module
-        conclusion.is_a? test
+        conclusion.is_a? litmus
       end
+    end
+    
+    def whip
+      ::Leap::Whip
     end
   end
 end

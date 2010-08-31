@@ -111,9 +111,10 @@ class Idea < Struct.new(:clarity, :brilliance, :simplicity, :genius)
   end
   
   include Leap
-  ::Leap::Enforcer.enforce :confirmed do |conclusion|
+  Leap::Whip.enforce :confirmed do |conclusion|
     conclusion == 10
   end
+  
   decide :value, :with => :characteristics do
     committee :value => Fixnum do
       quorum 'from clarity', :needs => :clarity do |characteristics|
