@@ -10,8 +10,9 @@ begin
     gem.email = "andy@rossmeissl.net"
     gem.homepage = "http://github.com/rossmeissl/leap"
     gem.authors = ["Andy Rossmeissl", "Seamus Abshere"]
-    gem.add_development_dependency "shoulda", ">= 0"
     gem.add_development_dependency "characterizable", ">=0.0.11"
+    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_development_dependency "jeweler", ">= 0"
     gem.add_dependency 'blockenspiel', '>=0.3.2'
     gem.add_dependency 'activesupport', '>=3.0.0.beta2'
   end
