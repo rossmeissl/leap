@@ -9,6 +9,7 @@ end if ActiveSupport::VERSION::MAJOR == 3
 require 'blockenspiel'
 
 require 'leap/core_ext'
+require 'leap/xml_serializer'
 require 'leap/subject'
 require 'leap/committee'
 require 'leap/quorum'

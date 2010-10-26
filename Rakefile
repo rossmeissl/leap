@@ -14,7 +14,8 @@ begin
     gem.add_development_dependency "shoulda", ">= 0"
     gem.add_development_dependency "jeweler", ">= 0"
     gem.add_dependency 'blockenspiel', '>=0.3.2'
-    gem.add_dependency 'activesupport', '>=3.0.0.beta2'
+    gem.add_dependency 'activesupport', '~> 3.0.0'
+    gem.add_dependency 'builder', '~> 2.1.2'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
