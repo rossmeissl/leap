@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andy Rossmeissl", "Seamus Abshere"]
-  s.date = %q{2010-10-26}
+  s.date = %q{2010-10-28}
   s.description = %q{Leap to conclusions}
   s.email = %q{andy@rossmeissl.net}
   s.extra_rdoc_files = [
@@ -51,7 +51,6 @@ Gem::Specification.new do |s|
     "test/leap/test_report.rb",
      "test/leap/test_committee.rb",
      "test/leap/test_quorum.rb",
-     "test/leap/test_subject.rb",
      "test/test_leap.rb",
      "test/helper.rb"
   ]
