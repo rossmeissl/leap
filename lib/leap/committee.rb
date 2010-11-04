@@ -9,11 +9,11 @@ module Leap
       @quorums = []
     end
     
-    def report(characteristics, considerations, options = {})
+    def report(subject, characteristics, considerations, options = {})
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
-          ::Leap::Report.new self, quorum => conclusion
+          ::Leap::Report.new subject, self, quorum => conclusion
         end
       end
     end

@@ -12,7 +12,7 @@ module Leap
       define_method goal do |*considerations|
         options = considerations.extract_options!
         @deliberations ||= {}
-        @deliberations[goal] = self.class.decisions[goal].make(send(self.class.decisions[goal].signature_method), *considerations.push(options))
+        @deliberations[goal] = self.class.decisions[goal].make(self, *considerations.push(options))
         @deliberations[goal][goal] or raise ::Leap::NoSolutionError
       end
     end
