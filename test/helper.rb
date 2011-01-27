@@ -1,11 +1,13 @@
 require 'rubygems'
+require 'bundler'
+Bundler.setup
 require 'test/unit'
 require 'shoulda'
 require 'characterizable'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'leap'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'leap'))
 
 class Test::Unit::TestCase
 end
