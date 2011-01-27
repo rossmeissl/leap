@@ -102,3 +102,14 @@ class Thing
     committee(:anything) {}
   end
 end
+
+class Seamus
+  include Leap
+  decide :can_i_commit_to_that_date do
+    committee :can_i_commit_to_that_date do
+      quorum 'my first instinct', :complies => :bent do |characteristics|
+        :maybe
+      end
+    end
+  end
+end

@@ -101,4 +101,24 @@ class TestLeap < Test::Unit::TestCase
       end
     end
   end
+  
+  context 'Seamus deciding about whether he can commit to a date' do
+    setup do
+      @seamus = Seamus.new
+    end
+    
+    should 'work for most people' do
+      assert_equal :maybe, @seamus.can_i_commit_to_that_date
+    end
+    
+    should 'work for BenT, who is easygoing' do
+      assert_equal :maybe, @seamus.can_i_commit_to_that_date(:complies => :bent)
+    end
+    
+    should 'never work for andy' do
+      assert_raise ::Leap::NoSolutionError do
+        @seamus.can_i_commit_to_that_date(:complies => :andy)
+      end
+    end
+  end
 end
