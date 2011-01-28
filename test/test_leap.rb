@@ -112,12 +112,12 @@ class TestLeap < Test::Unit::TestCase
     end
     
     should 'work for BenT, who is easygoing' do
-      assert_equal :maybe, @seamus.can_i_commit_to_that_date(:complies => :bent)
+      assert_equal :maybe, @seamus.can_i_commit_to_that_date(:comply => :bent)
     end
     
     should 'never work for andy' do
       assert_raise ::Leap::NoSolutionError do
-        @seamus.can_i_commit_to_that_date(:complies => :andy)
+        @seamus.can_i_commit_to_that_date(:comply => :andy)
       end
     end
   end
