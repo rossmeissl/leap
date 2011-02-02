@@ -107,9 +107,11 @@ class TestLeap < Test::Unit::TestCase
     end
     
     should 'be impossible to make' do
-      assert_raise ::Leap::NoSolutionError do
+      exception = assert_raise ::Leap::NoSolutionError do
         @thing.anything
       end
+      
+      assert_match(/No solution was found for "anything"/, exception.message)
     end
   end
   
