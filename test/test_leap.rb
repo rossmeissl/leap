@@ -115,6 +115,21 @@ class TestLeap < Test::Unit::TestCase
     end
   end
   
+  context "A difficult decision" do
+    setup do
+      @person = Person.new :name => 'Bozo'
+    end
+    
+    should 'provide details about its apparent impossibility' do
+      exception = assert_raise ::Leap::NoSolutionError do
+        @person.lucky_number :comply => :zeus
+      end
+      
+      assert_match(/No solution was found for "lucky_number"/, exception.message)
+      assert_match(/Characteristics considered: [:name]/, exception.message)
+    end
+  end
+  
   context 'Seamus deciding about whether he can commit to a date' do
     setup do
       @seamus = Seamus.new
