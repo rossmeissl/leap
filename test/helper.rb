@@ -67,7 +67,7 @@ class Person
     end
     
     committee :magic_float do
-      quorum 'ancient recipe', :needs => :name do |characteristics|
+      quorum 'ancient recipe', :needs => :name, :complies => :zeus do |characteristics|
         ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.first).to_f / ('A'..'Z').to_a.index(characteristics[:name].chars.to_a.last).to_f 
       end
     end
