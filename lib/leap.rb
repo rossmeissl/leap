@@ -17,11 +17,10 @@ require 'leap/decision'
 require 'leap/report'
 require 'leap/deliberation'
 require 'leap/implicit_attributes'
+require 'leap/no_solution_error'
 
 module Leap
   def self.included(base)
     base.extend ::Leap::Subject
   end
-  
-  class NoSolutionError < ArgumentError; end
 end

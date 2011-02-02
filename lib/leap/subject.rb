@@ -13,7 +13,7 @@ module Leap
         options = considerations.extract_options!
         @deliberations ||= {}
         @deliberations[goal] = self.class.decisions[goal].make(self, *considerations.push(options))
-        @deliberations[goal][goal] or raise ::Leap::NoSolutionError
+        @deliberations[goal][goal] or raise ::Leap::NoSolutionError, goal
       end
     end
   end
