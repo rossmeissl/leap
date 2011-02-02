@@ -126,7 +126,7 @@ class TestLeap < Test::Unit::TestCase
       end
       
       assert_match(/No solution was found for "lucky_number"/, exception.message)
-      assert_match(/Characteristics considered: [:name]/, exception.message)
+      assert_match(/Characteristics considered: \[:name\]/, exception.message)
     end
   end
   
