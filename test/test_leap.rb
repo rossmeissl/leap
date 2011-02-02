@@ -90,6 +90,17 @@ class TestLeap < Test::Unit::TestCase
     end
   end
   
+  context "A lazy subject" do
+    setup do
+      @thing = Thing.new
+      @thing.anything rescue nil
+    end
+    
+    should 'have proper implicit characteristics' do
+      assert_equal Hash.new, @thing.deliberations[:anything].characteristics
+    end
+  end
+  
   context "An impossible decision" do
     setup do
       @thing = Thing.new
