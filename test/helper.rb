@@ -4,6 +4,12 @@ Bundler.setup
 require 'test/unit'
 require 'shoulda'
 require 'characterizable'
+require 'active_support/version'
+%w{
+  active_support/core_ext/hash/except
+}.each do |active_support_3_requirement|
+  require active_support_3_requirement
+end if ActiveSupport::VERSION::MAJOR == 3
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
