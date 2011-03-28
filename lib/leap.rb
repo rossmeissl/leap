@@ -18,6 +18,7 @@ require 'leap/report'
 require 'leap/deliberation'
 require 'leap/implicit_attributes'
 require 'leap/no_solution_error'
+require 'leap/deliberations_accessor'
 
 module Leap
   def self.included(base)
