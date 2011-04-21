@@ -139,6 +139,7 @@ The computation of a Leap decision requires a curated set of properties of the h
 
 By default, Leap will dynamically construct a characteristics hash out of the object's instance variables. This is definitely a stopgap solution though; much better is to provide a method on the object that returns a *curated* set of properties ("characteristics") and specify it to Leap using the `:with` option on the `decide` block:
 
+``` ruby
 class Person < ActiveRecord::Base
   def characteristics
     attributes.slice :name, :age, :gender
@@ -149,9 +150,11 @@ class Person < ActiveRecord::Base
     # . . .
   end
 end
+```
 
 Even better is to use a library like [Charisma](http://github.com/brighterplanet/charisma) that does the curation for you:
 
+``` ruby
 class Person < ActiveRecord::Base
   include Charisma
   characterize do
@@ -165,6 +168,7 @@ class Person < ActiveRecord::Base
     # . . .
   end
 end
+```
 
 When it comes time to compute your decision block, Leap will call your characteristics method, duplicate the resulting hash, and send it into the decision. The hash gets handed from one committee to the next, with each committee inserting its conclusion. In this way, the hash accumulates increasing knowledge about the object until it reaches the master committee for final determination.
 
