@@ -238,7 +238,7 @@ You can name your protocols how ever you want; they just have to match between t
 
 ## Internals
 
-Normally you'll construct your decision strategies using `decide :foo . . . end` blocks and perform them using the resulting `#foo` methods, but sometimes you'll want access to Leaps internals.
+Normally you'll construct your decision strategies using `decide :foo . . . end` blocks and perform them using the resulting `#foo` methods, but sometimes you'll want access to Leap's internals.
 
 * All decisions are stored as Leap::Decision objects in the host class's `@decisions` variable. Leap provides a `#decisions` accessor.
 * When a decision is *computed* for a specific instance, it is stored as a Leap::Deliberation in the instance's `@deliberations` variable. Leap provides a `#deliberations` accessor. 
