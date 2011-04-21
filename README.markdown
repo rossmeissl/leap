@@ -1,13 +1,13 @@
-= Leap
+# Leap
 
 Leap is a system for:
 
-# describing decision-making strategies used to determine a potentially non-obvious attribute of an object
-# computing that attribute by choosing appropriate strategies given a specific set of input information
+1. describing decision-making strategies used to determine a potentially non-obvious attribute of an object
+2. computing that attribute by choosing appropriate strategies given a specific set of input information
 
 At [Brighter Planet](http://brighterplanet.com), we use Leap to determine the carbon footprint of activities like flights that produce some quantity of CO2 emissions. Given, for example, an arbitrary real-life flight, for which we know some subset of its real-life details, Leap uses the most appropriate methodology to arrive at a result.
 
-== Quick start and silly example
+## Quick start and silly example
 
 ``` console
 $ gem install leap
@@ -61,7 +61,7 @@ end
 ```
 
 
-== Extended example
+## Extended example
 
 Let's say that somewhere in our Ruby application we need to figure out what time of day it is. Because time of day depends on a frame of reference, we'll consider it as a computable property of a Person.
 
@@ -133,7 +133,7 @@ Surely there is more than one way of determining the Person's current address, s
 
 Now that we've looked at an overview of the Leap system, let's look at each component in depth, from the inside (characteristics) out (decisions).
 
-== Characteristics
+## Characteristics
 
 The computation of a Leap decision requires a curated set of properties of the host object. In the examples above, you'll see that each quorum receives a `characteristics` hash. Where does this come from?
 
@@ -170,7 +170,7 @@ When it comes time to compute your decision block, Leap will call your character
 
 It's worth noting that often a decision block will have committees that correspond exactly (by name) with attributes in the characteristics hash. That's because there's never a guarantee that all of the object's attributes will be non-nil. If an attribute is directly provided by the object, the corresponding committee will never called.
 
-== Defining quorums
+## Defining quorums
 
 Quorums are encapsulated methodologies for determining something, given a
 specific set of inputs.
@@ -198,17 +198,17 @@ This is an example from a total cost of ownership model. In this case, the annua
 
 The quorum block gets stored as a closure for later use; the `:needs` act as a gatekeeper. If, during computation, available characteristics satisfy the quorum's requirements, then the *subset* of those characteristics that are actually *asked for* (via `:needs` or `:appreciates`) is provided to the block.
 
-== Committees
+## Committees
 
 Committees are charged with producing a single value, as defined by its name, and, in pursuit of this value, identifying and acknowledging its most appropriate quorum to return this value, given available input information.
 
 Quorums are always considered top-to-bottom. When called, the committee assesses each committee, checking to see if its needs are satisfied by available information. The first satisfied quorum is acknowledged. If its conclusion is non-nil, it becomes the committee's conclusion; if it is nil, then the committee continues to the next satisfied quorum. If no conclusion is possible, the committee returns a nil result.
 
-== Decisions
+## Decisions
 
 Decisions are ordered groups of committees fashioned to provide a number of pathways to a single result (the goal). Committees are always called bottom-to-top, so that progressively more information becomes known about the object, ultimately reaching the master committee that provides the result of the decision. Leap begins with the curated characteristics hash described above. It submits this hash to the first committee (the bottom one), which produces some result. This result is added to the characteristics hash, which is then submitted to the next committee, and so on, until the final (top) committee is called, benefiting from all of the intermediate committee conclusions.
 
-== Compliance
+## Compliance
 
 Leap is all about providing numerous methods for arriving at a conclusion. But inevitably that means that some <del>unsavory</del> unorthodox quorums will make their way into your committees, and sometimes you'll want to restrict your decisions to conventional approaches. Leap supports this with its *compliance system*.
 
@@ -232,13 +232,13 @@ and then perform your decision with a protocol constraint:
 
 You can name your protocols how ever you want; they just have to match between the quorum assertions and the decision option.
 
-== Internals
+## Internals
 
 Normally you'll construct your decision strategies using `decide :foo . . . end` blocks and perform them using the resulting `#foo` methods, but sometimes you'll want access to Leaps internals.
 
 * All decisions are stored as Leap::Decision objects in the host class's `@decisions` variable. Leap provides a `#decisions` accessor.
 * When a decision is *computed* for a specific instance, it is stored as a Leap::Deliberation in the instance's `@deliberations` variable. Leap provides a `#deliberations` accessor. 
 
-== Copyright
+## Copyright
 
 Copyright (c) 2010 Andy Rossmeissl.
