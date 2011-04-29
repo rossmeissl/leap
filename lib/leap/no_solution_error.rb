@@ -1,5 +1,9 @@
 module Leap
+  # Raised when a Leap solution cannot be found. 
+  #
+  # If this is raised unexpectedly, try removing compliance constraints or double-checking that you have enough quorums within mainline committees to provide conclusions given any combination of input data.
   class NoSolutionError < ArgumentError;
+    # Create the excpetion
     def initialize(options = {})
       @goal = options[:goal]
       @deliberation = options[:deliberation]
@@ -19,6 +23,7 @@ module Leap
     
     private
     
+    # A report on the deliberation proceedings, for debugging purposes.
     def deliberation_report
       @deliberation.characteristics.keys.sort_by(&:to_s).map do |characteristic|
         statement = "#{characteristic}: "

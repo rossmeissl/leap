@@ -1,5 +1,5 @@
 class Array
-  # like detect, but returns the calculated value
+  # Like <tt>Array#detect</tt>, but returns the calculated value
   def grab(&blk)
     result = each do |element|
       value = yield element
