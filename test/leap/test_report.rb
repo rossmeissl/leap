@@ -1,12 +1,12 @@
 require 'helper'
 
 class Vagabond
-  include Characterizable
+  include Charisma
 
   characterize do
     has :scruples
     has :tenacity do
-      displays { |t| "ferocious" }
+      'ferocious'
     end
   end
 end

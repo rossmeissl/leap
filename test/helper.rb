@@ -3,7 +3,7 @@ require 'bundler'
 Bundler.setup
 require 'test/unit'
 require 'shoulda'
-require 'characterizable'
+require 'charisma'
 require 'active_support/version'
 %w{
   active_support/core_ext/hash/except
@@ -31,7 +31,7 @@ class Person
     @magic_integer = options[:magic_integer] if options[:magic_integer] && options[:magic_integer].is_a?(Integer)
   end
   
-  include Characterizable
+  include Charisma
   
   characterize do
     has :name
