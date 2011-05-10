@@ -25,7 +25,7 @@ class TestLeap < Test::Unit::TestCase
     end
     
     should 'nevertheless remember how his lucky number was determined' do
-      assert_equal({ :magic_integer => 6, :lucky_number => 36, :age => 5, :litmus => {}}, @person.deliberations[:lucky_number].characteristics)
+      assert_equal(@person.deliberations[:lucky_number].characteristics, { :magic_integer => 6, :lucky_number => 36, :age => 5, :litmus => {}})
       assert_equal 'ninja style', @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :magic_integer }.quorum.name
     end
     
