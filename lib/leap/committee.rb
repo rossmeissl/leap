@@ -11,7 +11,6 @@ module Leap
   # Committees are composed of one or more quorums (<tt>Leap::Quorum</tt> objects) that encapsulate specific methodologies for drawing the committee's conclusion. This composition is defined within the <tt>Leap::Decision#committee</tt> block using the <tt>Leap::Committee#quorum</tt> DSL.
   # @see Leap::Quorum
   class Committee
-    include XmlSerializer
 
     # The name of the committee, traditionally formulated to represent a computable attribute of the subject.
     attr_reader :name
@@ -47,22 +46,6 @@ module Leap
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
           ::Leap::Report.new subject, self, quorum => conclusion
-        end
-      end
-    end
-
-    def as_json(*)
-      {
-        'name' => name.to_s,
-        'quorums' => quorums.map(&:as_json)
-      }
-    end
-
-    def to_xml(options = {})
-      super options do |xml|
-        xml.committee do |committee_block|
-          committee_block.name name.to_s, :type => 'string'
-          array_to_xml(committee_block, :quorums, quorums)
         end
       end
     end

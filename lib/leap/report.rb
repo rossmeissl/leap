@@ -37,23 +37,5 @@ module Leap
       end
       @formatted_conclusion ||= conclusion
     end
-
-    def as_json(*)
-      {
-        'committee' => committee.as_json,
-        'conclusion' => formatted_conclusion,
-        'quorum' => quorum.as_json
-      }
-    end
-
-    def to_xml(options = {})
-      super options do |xml|
-        xml.report do |report_block|
-          committee.to_xml(options.merge :skip_instruct => true, :builder => report_block)
-          report_block.conclusion formatted_conclusion, :type => formatted_conclusion.class.to_s.downcase
-          quorum.to_xml(options.merge :skip_instruct => true, :builder => report_block)
-        end
-      end
-    end
   end
 end
