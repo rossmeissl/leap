@@ -1,5 +1,7 @@
 # Leap
 
+See also: [RDoc](http://rubydoc.info/github/rossmeissl/leap/master/frames).
+
 Leap is a system for:
 
 1. describing decision-making strategies used to determine a potentially non-obvious attribute of an object
