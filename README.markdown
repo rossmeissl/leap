@@ -174,7 +174,7 @@ end
 
 When it comes time to compute your decision block, Leap will call your characteristics method, duplicate the resulting hash, and send it into the decision. The hash gets handed from one committee to the next, with each committee inserting its conclusion. In this way, the hash accumulates increasing knowledge about the object until it reaches the master committee for final determination.
 
-It's worth noting that often a decision block will have committees that correspond exactly (by name) with attributes in the characteristics hash. That's because there's never a guarantee that all of the object's attributes will be non-nil. If an attribute is directly provided by the object, the corresponding committee will never called.
+It's worth noting that often a decision block will have committees that correspond exactly (by name) with attributes in the characteristics hash. That's because there's never a guarantee that all of the object's attributes will be non-nil. If an attribute is directly provided by the object, the corresponding committee will never be called.
 
 ## Defining quorums
 
@@ -208,7 +208,7 @@ The quorum block gets stored as a closure for later use; the `:needs` act as a g
 
 Committees are charged with producing a single value, as defined by its name, and, in pursuit of this value, identifying and acknowledging its most appropriate quorum to return this value, given available input information.
 
-Quorums are always considered top-to-bottom. When called, the committee assesses each committee, checking to see if its needs are satisfied by available information. The first satisfied quorum is acknowledged. If its conclusion is non-nil, it becomes the committee's conclusion; if it is nil, then the committee continues to the next satisfied quorum. If no conclusion is possible, the committee returns a nil result.
+Quorums are always considered top-to-bottom. When called, the committee assesses each quorum, checking to see if its needs are satisfied by available information. The first satisfied quorum is acknowledged. If its conclusion is non-nil, it becomes the committee's conclusion; if it is nil, then the committee continues to the next satisfied quorum. If no conclusion is possible, the committee returns a nil result.
 
 ## Decisions
 
