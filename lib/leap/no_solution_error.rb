@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 module Leap
   # Raised when a Leap solution cannot be found. 
   #

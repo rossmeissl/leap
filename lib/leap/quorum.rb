@@ -3,8 +3,7 @@ module Leap
   #
   # A quorum encapsulates a specific methodology for drawing a conclusion based on a set of input information.
   class Quorum
-    include XmlSerializer
-
+    
     # The name of the quorum
     attr_reader :name
     
@@ -54,26 +53,6 @@ module Leap
     # All characteristics either needed or wanted by the quorum.
     def characteristics
       requirements + supplements
-    end
-
-    def as_json(*)
-      { 
-        'name' => name.to_s,
-        'requirements' => requirements.map(&:to_s),
-        'appreciates' => supplements.map(&:to_s),
-        'complies' => compliance.map(&:to_s)
-      }
-    end
-
-    def to_xml(options = {})
-      super options do |xml|
-        xml.quorum do |quorum_block|
-          quorum_block.name name.to_s, :type => 'string'
-          array_to_xml(quorum_block, :requirements, requirements)
-          array_to_xml(quorum_block, :appreciates, supplements, 'supplement')
-          array_to_xml(quorum_block, :complies, compliance, 'compliance')
-        end
-      end
     end
   end
 end
