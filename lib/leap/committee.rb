@@ -34,18 +34,17 @@ module Leap
     # Steps through each quorum defined within the committee in search of one that can be called with the provided characteristics and is compliant with the requested protocols. Upon finding such a quorum, it is called. If a conclusion is returned, it becomes the committee's conclusion; if not, the quorum-seeking process continues.
     #
     # Generally you will not call this method directly; <tt>Leap::Decision#make</tt> requests reports at the appropriate time.
-    # @param [Leap::Subject] subject The Leap subject about which we're computing this attribute.
     # @param [Hash] characteristics What we know so far about the subject.
     # @param [Array] considerations Auxiliary contextual details about the decision (see <tt>Leap::GoalMethodsDocumentation</tt>)
     # @param [optional, Hash] options
     # @option comply Compliance constraint. See <tt>Leap::GoalMethodsDocumentation</tt>.
     # @see Leap::GoalMethodsDocumentation
     # @return Leap::Report
-    def report(subject, characteristics, considerations, options = {})
+    def report(characteristics, considerations, options = {})
       quorums.grab do |quorum|
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
-          ::Leap::Report.new subject, self, quorum => conclusion
+          ::Leap::Report.new self, quorum => conclusion
         end
       end
     end

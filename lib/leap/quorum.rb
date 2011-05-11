@@ -3,8 +3,7 @@ module Leap
   #
   # A quorum encapsulates a specific methodology for drawing a conclusion based on a set of input information.
   class Quorum
-    include XmlSerializer
-
+    
     # The name of the quorum
     attr_reader :name
     
