@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "leap"
   s.version     = Leap::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Andy Rossmeissl", "Seamus Abshere"]
+  s.authors     = ["Andy Rossmeissl", "Seamus Abshere", "Derek Kastner"]
   s.email       = "andy@rossmeissl.net"
   s.homepage    = "http://github.com/rossmeissl/leap"
   s.summary     = %Q{A heuristics engine for your Ruby objects}
@@ -17,8 +17,9 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   
-#  s.add_development_dependency "charisma"
+  s.add_development_dependency "charisma", '~>0.2.0'
   s.add_development_dependency "shoulda"
+  s.add_development_dependency 'bueller'
   s.add_dependency 'blockenspiel', '>=0.3.2'
   s.add_dependency 'activesupport', '>=2.3.4'
   # sabshere 1/27/11 for activesupport - http://groups.google.com/group/ruby-bundler/browse_thread/thread/b4a2fc61ac0b5438
