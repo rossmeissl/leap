@@ -141,4 +141,20 @@ class TestLeap < Test::Unit::TestCase
       end
     end
   end
+  
+  context 'A committee' do
+    setup do
+      class Owl
+        include Leap
+        decide :eye_size do
+          committee :eye_size, :measures => :length do
+          end
+        end
+      end
+    end
+    
+    should 'remember options that it was given when it was created' do
+      assert_equal :length, Owl.decisions[:eye_size].committees[:eye_size].options[:measures]
+    end
+  end
 end
