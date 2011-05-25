@@ -18,14 +18,19 @@ module Leap
     # The array of quorums defined within the committee.
     attr_reader :quorums
     
+    # An options hash
+    attr_reader :options
+    
     # Creates a new <tt>Leap::Committee</tt> with the given name.
     #
     # Generally you don't create these objects directly; <tt>Leap::Decision#committee</tt> does that for you.
     #
     # @see Leap::Decision#committee
     # @param [Symbol] name The name of the committee, traditionally formulated to represent a computable attribute of the subject.
-    def initialize(name)
+    # @param [Hash] options Any options you wish the committee to remember (for third-party use).
+    def initialize(name, options)
       @name = name
+      @options = options
       @quorums = []
     end
     

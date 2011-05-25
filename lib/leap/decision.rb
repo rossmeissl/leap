@@ -44,8 +44,9 @@ module Leap
     #
     # Used within a <tt>Leap::Subject#decide</tt> block to define a new committee. See <tt>Leap::Committee</tt> for details.
     # @param [Symbol] name The name of the attribute that the committee will return.
-    def committee(name, &blk)
-      committee = ::Leap::Committee.new(name)
+    # @param [Hash, optional] options Any options you wish the committee to remember (for third-party use).
+    def committee(name, options = {}, &blk)
+      committee = ::Leap::Committee.new(name, options)
       @committees << committee
       ::Blockenspiel.invoke blk, committee
     end

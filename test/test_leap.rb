@@ -154,7 +154,7 @@ class TestLeap < Test::Unit::TestCase
     end
     
     should 'remember options that it was given when it was created' do
-      assert_equal :length, Owl.decisions[:eye_size].committees[:eye_size].options[:measures]
+      assert_equal :length, Owl.decisions[:eye_size].committees.first.options[:measures]
     end
   end
 end
