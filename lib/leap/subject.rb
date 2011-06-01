@@ -50,11 +50,9 @@ module Leap
       decisions[goal] = ::Leap::Decision.new goal, options
       Blockenspiel.invoke(blk, decisions[goal])
       define_method goal do |*considerations|
-        options = considerations.extract_options!
         @deliberations ||= {}
         decision = self.class.decisions[goal]
         characteristics = send(self.class.decisions[goal].signature_method)
-        considerations.push(options)
         @deliberations[goal] = decision.make(characteristics, *considerations)
         if @deliberations[goal][goal].nil? 
           raise ::Leap::NoSolutionError, :goal => goal,
