@@ -141,7 +141,7 @@ end
 
 Surely there is more than one way of determining the Person's current address, so, as you can see, a dozen or more committees, each with several quorums, would be necessary to completely describe the intuitive process that we humans use to figure out something as simple as the likely time of day. This is a useful way to think about Leap: it's a non-learning artifical intelligence system that attempts to model human intuition by describing heuristic strategies.
 
-Now that we've looked at an overview of the Leap system, let's look at each component in depth, from the inside (characteristics) out (decisions).
+Now that we've looked at an overview of the Leap system, let's look at each component in depth, starting with the goal method and proceeding from the inside (characteristics) out (decisions).
 
 ## Goal method
 
