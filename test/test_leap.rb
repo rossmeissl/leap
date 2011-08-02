@@ -157,4 +157,15 @@ class TestLeap < Test::Unit::TestCase
       assert_equal :length, Owl.decisions[:eye_size].committees.first.options[:measures]
     end
   end
+  
+  context 'A decision without a master committee' do
+    setup do
+      @idea = Idea.new
+    end
+    
+    should 'still compute' do
+      @idea.value
+      assert_equal({:cost => 0, :benefit => 1}, @idea.deliberations[:value].characteristics)
+    end
+  end
 end

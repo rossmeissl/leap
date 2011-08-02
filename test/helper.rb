@@ -119,3 +119,15 @@ class Seamus
     end
   end
 end
+
+class Idea
+  include Leap
+  decide :value do
+    committee :cost do
+      quorum('default') {0}
+    end
+    committee :benefit do
+      quorum('default') {1}
+    end
+  end
+end
