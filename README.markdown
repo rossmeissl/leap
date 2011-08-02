@@ -89,11 +89,19 @@ class Person
   end
 end
 ```
+
+``` irb
+> Person.new(:watch => Watch.new).time
+ => 3:02pm
+```
+
 The `decide :time do . . . end` block is called the *decision*. In this case, we're describing how to decide *time* for a given Person; we say that time is the *goal* of the decision. Leap will define a method on the object named after the decision (in this case, `Person#time`). Calling this method computes the decision.
 
-The `committee :time do . . . end` block is called a *committee*. Committees represent a set of methodologies, all of which are appropriate means of determining its namesake property, in this case *time*. All decision blocks must at the very least provide a committee for the goal; this is implicitly the *master committee*. Typically Leap decisions will involve many more committees, each of which is tasked with determining some intermediate result necessary for the master committee to arrive at a conclusion.
+The `committee :time do . . . end` block is called a *committee*. Committees represent a set of methodologies, all of which are appropriate means of determining its namesake property, in this case *time*. Most decision blocks provide a committee named the same as the goal; this is implicitly the *master committee*. Typically Leap decisions will involve many more committees, each of which is tasked with determining some intermediate result necessary for the master committee to arrive at a conclusion.
 
 The `quorum 'look at your watch' . . . end` block is called a *quorum*. Quorums describe *one particular way* of reaching the committee's conclusion, along with a list (`:needs`) of what they need to be employed. The `characteristics` blockvar is a curated subset of the object's attributes presented to the quorum (which is in this sense a *closure*) for consideration.
+
+The `Person#time` method, which is created dynamically by Leap, is called the *goal method*---it actually performs the decision on the object.
 
 Back to the example. Having a watch does indeed make telling time easy. Complexities arise when you don't; you have to fallback to more intuitive methods.
 
@@ -134,6 +142,16 @@ end
 Surely there is more than one way of determining the Person's current address, so, as you can see, a dozen or more committees, each with several quorums, would be necessary to completely describe the intuitive process that we humans use to figure out something as simple as the likely time of day. This is a useful way to think about Leap: it's a non-learning artifical intelligence system that attempts to model human intuition by describing heuristic strategies.
 
 Now that we've looked at an overview of the Leap system, let's look at each component in depth, from the inside (characteristics) out (decisions).
+
+## Goal method
+
+Since Leap helps determine non-obvious attributes of objects, its decisions are made using methods that look and behave like attribute accessors:
+
+``` ruby
+@person.time # Makes the "time" decision (as defined on Person) using @person's characteristics
+```
+
+If there is a master commitee, the goal method returns its report; if not, it returns a hash of all the committees' reports.
 
 ## Characteristics
 
