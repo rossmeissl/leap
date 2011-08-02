@@ -167,5 +167,9 @@ class TestLeap < Test::Unit::TestCase
       @idea.value
       assert_equal({:cost => 0, :benefit => 1}, @idea.deliberations[:value].characteristics)
     end
+    
+    should 'provide easy access to committee reports' do
+      assert_equal 0, @idea.value[:cost]
+    end
   end
 end
