@@ -23,6 +23,11 @@ module Leap
       @committees = []
     end
     
+    # Answers whether or not the decision has a "master committee"--a committee with the same name as the decision's goal.
+    def mastered?
+      !!committees.find { |committee| committee.name == goal }
+    end
+    
     # Make the decision.
     #
     # General you won't call this directly, but rather use the dynamically-created method with this decision's goal as its name on the subject instance.
