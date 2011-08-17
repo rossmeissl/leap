@@ -25,16 +25,3 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 task :default => :test
-
-begin
-  require 'rake/rdoctask'
-  Rake::RDocTask.new do |rdoc|
-    rdoc.rdoc_dir = 'rdoc'
-    rdoc.title = 'leap'
-    rdoc.options << '--line-numbers' << '--inline-source'
-    rdoc.rdoc_files.include('README*')
-    rdoc.rdoc_files.include('lib/**/*.rb')
-  end
-rescue LoadError
-   puts "Rdoc is not available"
-end
