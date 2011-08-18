@@ -15,13 +15,15 @@ module Leap
     #
     # This is generally called in the midst of <tt>Leap::Committee#report</tt>
     # @param [Leap::Committee] The committee that produced the report.
+    # @param [Leap::Quorum] The responsible quorum.
+    # @param [any] The conclusion.
     # @param [Hash] report A single-pair hash containing the responsible quorum and its conclusion.
-    # @raise [ArgumentError] Raised for anonymous reports, or if the report is not made properly.
-    def initialize(committee, report)
+    # @raise [ArgumentError] Raised for anonymous reports.
+    def initialize(committee, quorum, conclusion)
       raise ArgumentError, 'Reports must identify themselves' unless committee.is_a?(::Leap::Committee)
       @committee = committee
-      raise ArgumentError, 'Please report with quorum => conclusion' unless report.is_a?(Hash) and report.length == 1
-      @quorum, @conclusion = report.first
+      @quorum = quorum
+      @conclusion = conclusion
     end
   end
 end
