@@ -52,11 +52,11 @@ module Leap
       define_method goal do |*considerations|
         @deliberations ||= {}
         decision = self.class.decisions[goal]
-        characteristics = send(self.class.decisions[goal].signature_method)
+        characteristics = send(decision.signature_method)
         @deliberations[goal] = decision.make(characteristics, *considerations)
-        if self.class.decisions[goal].mastered? and @deliberations[goal][goal].nil? 
+        if decision.mastered? and @deliberations[goal][goal].nil? 
           raise ::Leap::NoSolutionError, :goal => goal, :deliberation => @deliberations[goal]
-        elsif self.class.decisions[goal].mastered?
+        elsif decision.mastered?
           @deliberations[goal][goal]
         else
           @deliberations[goal]
