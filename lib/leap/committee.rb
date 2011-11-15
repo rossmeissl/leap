@@ -1,3 +1,7 @@
+if ::ENV['LEAP_SLOW']
+  require 'benchmark'
+end
+
 module Leap
   # One of the basic building blocks of a Leap decision.
   #
@@ -46,12 +50,26 @@ module Leap
     # @see Leap::GoalMethodsDocumentation
     # @return Leap::Report
     def report(characteristics, considerations, options = {})
-      quorums.grab do |quorum|
-        next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
-        if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
-          ::Leap::Report.new self, quorum, conclusion
+      quorums.each do |quorum|
+        next unless quorum.satisfied_by?(characteristics) and quorum.complies_with?(Array.wrap(options[:comply]))
+        inner_characteristics = characteristics.slice(*quorum.characteristics)
+        inner_considerations = considerations.dup
+        conclusion = nil
+        if ::ENV['LEAP_SLOW']
+          time = ::Benchmark.realtime do
+            conclusion = quorum.acknowledge(inner_characteristics, inner_considerations)
+          end
+          if time > ENV['LEAP_SLOW'].to_f
+            $stderr.puts "[leap] (#{'%0.1f' % time}ms) #{name}/#{quorum.name}"
+          end
+        else
+          conclusion = quorum.acknowledge(inner_characteristics, inner_considerations)
+        end
+        if conclusion
+          return ::Leap::Report.new(self, quorum, conclusion)
         end
       end
+      nil
     end
     
     include ::Blockenspiel::DSL
