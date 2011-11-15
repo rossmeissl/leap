@@ -46,12 +46,13 @@ module Leap
     # @see Leap::GoalMethodsDocumentation
     # @return Leap::Report
     def report(characteristics, considerations, options = {})
-      quorums.grab do |quorum|
+      quorums.each do |quorum|
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
-          ::Leap::Report.new self, quorum, conclusion
+          return ::Leap::Report.new(self, quorum, conclusion)
         end
       end
+      nil
     end
     
     include ::Blockenspiel::DSL
