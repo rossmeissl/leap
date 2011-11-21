@@ -33,12 +33,16 @@ module Leap
     # General you won't call this directly, but rather use the dynamically-created method with this decision's goal as its name on the subject instance.
     # @see Leap::GoalMethodsDocumentation
     def make(characteristics, *considerations)
+      Leap.log.decision "Leaping to conclusion", goal
+      Leap.log.decision "Initial characteristics: #{characteristics.inspect}", goal
       options = considerations.extract_options!
       committees.reject { |c| characteristics.keys.include? c.name }.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
         if report = committee.report(deliberation.characteristics, considerations, options)
+          Leap.log.committee "Success", committee.name
           deliberation.reports.unshift report
           deliberation.characteristics[committee.name] = report.conclusion
         end
+        Leap.log.decision "Updated characteristics: #{deliberation.characteristics.inspect}", goal
         deliberation
       end
     end

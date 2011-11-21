@@ -57,8 +57,10 @@ module Leap
         if decision.mastered? and @deliberations[goal][goal].nil? 
           raise ::Leap::NoSolutionError, :goal => goal, :deliberation => @deliberations[goal]
         elsif decision.mastered?
+          Leap.log.decision "Success", goal
           @deliberations[goal][goal]
         else
+          Leap.log.decision "Success", goal
           @deliberations[goal]
         end
       end

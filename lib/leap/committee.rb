@@ -46,9 +46,13 @@ module Leap
     # @see Leap::GoalMethodsDocumentation
     # @return Leap::Report
     def report(characteristics, considerations, options = {})
+      Leap.log.committee "Convening committee", name
       quorums.each do |quorum|
+        Leap.log.quorum "Assessing quorum", quorum.name
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
+        Leap.log.quorum "Acknowledging quorum", quorum.name
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
+          Leap.log.quorum "Success", quorum.name 
           return ::Leap::Report.new(self, quorum, conclusion)
         end
       end

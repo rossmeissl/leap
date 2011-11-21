@@ -18,6 +18,7 @@ require 'leap/implicit_attributes'
 require 'leap/no_solution_error'
 require 'leap/deliberations_accessor'
 require 'leap/goal_methods_documentation'
+require 'leap/register'
 
 # Leap is a system for: 1) describing decision-making strategies used to determine a potentially non-obvious attribute of an object and 2)
 # computing that attribute by choosing appropriate strategies given a specific set of input information
