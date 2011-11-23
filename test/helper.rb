@@ -120,10 +120,14 @@ class Seamus
   end
 end
 
-class Idea
+class Idea < Struct.new(:gotchas)
+  
   include Leap
   decide :value do
     committee :cost do
+      quorum 'based on estimate of gotchas', :needs => :gotchas, :complies => :common_sense do |characteristics|
+        characteristics[:gotchas]
+      end
       quorum('default') {0}
     end
     committee :benefit do
