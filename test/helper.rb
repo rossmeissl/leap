@@ -126,13 +126,18 @@ class Idea < Struct.new(:gotchas)
   include Leap
   decide :value, :with => :to_hash do
     committee :cost do
-      quorum 'based on estimate of gotchas', :needs => :gotchas, :complies => :common_sense do |characteristics|
-        characteristics[:gotchas]
+      quorum 'based on estimate of hangups', :needs => :hangups, :complies => :common_sense do |characteristics|
+        characteristics[:hangups]
       end
       quorum('default') {0}
     end
     committee :benefit do
       quorum('default') {1}
+    end
+    committee :hangups do
+      quorum 'based on estimate of gotchas', :needs => :gotchas, :complies => :common_sense do |characteristics|
+        characteristics[:gotchas]
+      end
     end
   end
 end
