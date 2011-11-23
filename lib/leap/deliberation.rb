@@ -19,6 +19,12 @@ module Leap
     def [](characteristic)
       characteristics[characteristic]
     end
+
+    # Convenience method to access a certain committee's report within this deliberation.
+    # @param [Symbol] committee
+    def report(committee)
+      reports.find { |r| r.committee.name == committee }
+    end
     
     # Report which named protocols the deliberation incidentally complied with.
     # @param [Symbol, optional] committee If provided, Leap will compute this decision's compliance with respect only to this particular conclusion within it. If not provided, compliance will be computed for the entire decision.
@@ -37,16 +43,11 @@ module Leap
     end
 
     def compliance_from(committee)
-      puts "Grabbing compliance from #{committee}"
-      if report = reports.find { |r| r.committee.name == committee }
-        puts "Found #{report.committee.name} report"
+      if report = report(committee)
         compliance = report.quorum.requirements.inject(nil) do |memo, requirement|
-          puts "Injecting #{requirement} (memo at #{memo.inspect})"
           if subcompliance = compliance_from(requirement)
-            puts "Found subcompliance for #{requirement}: #{subcompliance.inspect} (intersecting with #{memo.inspect})"
             memo ? memo & subcompliance : subcompliance
           else
-            puts "Did not find subcompliance for #{requirement} (leaving memo at #{memo.inspect})"
             memo
           end
         end
