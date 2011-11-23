@@ -22,10 +22,30 @@ module Leap
     
     # Report which named protocols the deliberation incidentally complied with.
     # @return [Array]
-    def compliance(*)
+    def compliance(committee = nil)
+      committee ? compliance_from(committee) : general_compliance
+    end
+
+    private
+
+    def general_compliance
       reports.map(&:quorum).map(&:compliance).inject do |memo, c|
         next c unless memo
         memo & c
+      end
+    end
+
+    def compliance_from(committee)
+      if report = reports.find { |r| r.committee.name == committee }
+        compliance = report.quorum.requirements.inject(nil) do |memo, requirement|
+          if requirement_report = reports.find { |r| r.committee.name == requirement }
+            subcompliance = requirement_report.quorum.compliance
+            next subcompliance unless memo
+            memo & subcompliance
+          else
+            memo
+          end
+        end ? compliance & report.quorum.compliance : report.quorum.compliance
       end
     end
   end
