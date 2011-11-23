@@ -22,7 +22,7 @@ module Leap
     
     # Report which named protocols the deliberation incidentally complied with.
     # @return [Array]
-    def compliance
+    def compliance(*)
       reports.map(&:quorum).map(&:compliance).inject do |memo, c|
         next c unless memo
         memo & c

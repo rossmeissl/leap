@@ -121,9 +121,10 @@ class Seamus
 end
 
 class Idea < Struct.new(:gotchas)
+  def to_hash() Hash[members.zip(values)] end
   
   include Leap
-  decide :value do
+  decide :value, :with => :to_hash do
     committee :cost do
       quorum 'based on estimate of gotchas', :needs => :gotchas, :complies => :common_sense do |characteristics|
         characteristics[:gotchas]

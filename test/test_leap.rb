@@ -161,15 +161,20 @@ class TestLeap < Test::Unit::TestCase
   context 'A decision without a master committee' do
     setup do
       @idea = Idea.new
+      @bad_idea = Idea.new 100 # gotchas
     end
     
     should 'still compute' do
       @idea.value
-      assert_equal({:cost => 0, :benefit => 1}, @idea.deliberations[:value].characteristics)
+      assert_equal({:cost => 0, :benefit => 1, :gotchas => nil}, @idea.deliberations[:value].characteristics)
     end
     
     should 'provide easy access to committee reports' do
       assert_equal 0, @idea.value[:cost]
+    end
+
+    should 'provide compliance specific to a certain conclusion' do
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
     end
   end
 end
