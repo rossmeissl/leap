@@ -37,16 +37,20 @@ module Leap
     end
 
     def compliance_from(committee)
+      puts "Grabbing compliance from #{committee}"
       if report = reports.find { |r| r.committee.name == committee }
+        puts "Found #{report.committee.name} report"
         compliance = report.quorum.requirements.inject(nil) do |memo, requirement|
-          if requirement_report = reports.find { |r| r.committee.name == requirement }
-            subcompliance = requirement_report.quorum.compliance
-            next subcompliance unless memo
-            memo & subcompliance
+          puts "Injecting #{requirement} (memo at #{memo.inspect})"
+          if subcompliance = compliance_from(requirement)
+            puts "Found subcompliance for #{requirement}: #{subcompliance.inspect} (intersecting with #{memo.inspect})"
+            memo ? memo & subcompliance : subcompliance
           else
+            puts "Did not find subcompliance for #{requirement} (leaving memo at #{memo.inspect})"
             memo
           end
-        end ? compliance & report.quorum.compliance : report.quorum.compliance
+        end
+        report.quorum.compliance & (compliance || report.quorum.compliance)
       end
     end
   end
