@@ -166,14 +166,20 @@ class TestLeap < Test::Unit::TestCase
     
     should 'still compute' do
       @idea.value
-      assert_equal({:cost => 0, :benefit => 1, :gotchas => nil}, @idea.deliberations[:value].characteristics)
+      assert_equal({:cost => 0, :benefit => 1, :hangups => 0, :gotchas => nil}, @idea.deliberations[:value].characteristics)
     end
     
     should 'provide easy access to committee reports' do
       assert_equal 0, @idea.value[:cost]
     end
-
+    
     should 'provide compliance specific to a certain conclusion' do
+      # If hangups does not comply with common sense, neither should cost
+      assert_equal [], @idea.deliberations[:value].compliance(:hangups)
+      assert_equal [], @idea.deliberations[:value].compliance(:cost)
+      
+      # If hangups complies with common sense, cost should also
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:hangups)
       assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
     end
   end
