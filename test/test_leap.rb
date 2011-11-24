@@ -182,5 +182,13 @@ class TestLeap < Test::Unit::TestCase
       assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:hangups)
       assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
     end
+    
+    should 'provide details about the impossibility of a difficult decision' do
+      exception = assert_raise ::Leap::NoSolutionError do
+        @idea.value :comply => :common_sense
+      end
+      assert_match(/No solution was found for "cost"/, exception.message)
+      assert_match(/benefit: 1, hangups: 0/, exception.message)
+    end
   end
 end
