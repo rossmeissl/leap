@@ -120,7 +120,7 @@ class Seamus
   end
 end
 
-class Idea < Struct.new(:gotchas)
+class Idea < Struct.new(:gotchas, :caveats)
   def to_hash() Hash[members.zip(values)] end
   
   include Leap
@@ -131,6 +131,11 @@ class Idea < Struct.new(:gotchas)
       end
     end
     committee :benefit do
+      quorum 'based on caveats', :needs => :caveats, :complies => :wisdom do |characteristics|
+        10 - characteristics[:caveats]
+      end
+    end
+    committee :caveats do
       quorum('default') {1}
     end
     committee :hangups do
