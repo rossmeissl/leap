@@ -30,7 +30,7 @@ module Leap
     # @param [Symbol, optional] committee If provided, Leap will compute this decision's compliance with respect only to this particular conclusion within it. If not provided, compliance will be computed for the entire decision.
     # @return [Array]
     def compliance(committee = nil)
-      committee ? compliance_from(committee) : general_compliance
+      (committee ? compliance_from(committee) : general_compliance) || []
     end
 
     private
