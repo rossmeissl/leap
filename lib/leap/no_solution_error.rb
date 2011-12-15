@@ -29,7 +29,7 @@ module Leap
     def deliberation_report
       @deliberation.characteristics.keys.sort_by(&:to_s).map do |characteristic|
         statement = "#{characteristic}: "
-        if report = @deliberation.reports.find { |r| r.committee.name == characteristic }
+        if report = @deliberation.report(characteristic)
           statement << report.quorum.name.humanize.downcase
         else
           statement << 'provided as input'

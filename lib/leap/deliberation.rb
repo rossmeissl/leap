@@ -19,13 +19,38 @@ module Leap
     def [](characteristic)
       characteristics[characteristic]
     end
+
+    # Convenience method to access a certain committee's report within this deliberation.
+    # @param [Symbol] committee
+    def report(committee)
+      reports.find { |r| r.committee.name == committee }
+    end
     
     # Report which named protocols the deliberation incidentally complied with.
+    # @param [Symbol, optional] committee If provided, Leap will compute this decision's compliance with respect only to this particular conclusion within it. If not provided, compliance will be computed for the entire decision.
     # @return [Array]
-    def compliance
+    def compliance(committee = nil)
+      (committee ? compliance_from(committee) : general_compliance) || []
+    end
+
+    private
+
+    def general_compliance
       reports.map(&:quorum).map(&:compliance).inject do |memo, c|
-        next c unless memo
         memo & c
+      end
+    end
+
+    def compliance_from(committee)
+      if report = report(committee)
+        compliance = report.quorum.requirements.inject(nil) do |memo, requirement|
+          if subcompliance = compliance_from(requirement)
+            memo ? memo & subcompliance : subcompliance
+          else
+            memo
+          end
+        end
+        report.quorum.compliance & (compliance || report.quorum.compliance)
       end
     end
   end

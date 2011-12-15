@@ -51,15 +51,23 @@ module Leap
       Blockenspiel.invoke(blk, decisions[goal])
       define_method goal do |*considerations|
         Leap.instrument.decision goal do
+          options = considerations.extract_options!
           @deliberations ||= {}
           decision = self.class.decisions[goal]
           characteristics = send(decision.signature_method)
-          @deliberations[goal] = decision.make(characteristics, *considerations)
+          @deliberations[goal] = decision.make(characteristics, options, *considerations)
           if decision.mastered? and @deliberations[goal][goal].nil? 
             raise ::Leap::NoSolutionError, :goal => goal, :deliberation => @deliberations[goal]
           elsif decision.mastered?
             Leap.log.decision "Success", goal
             @deliberations[goal][goal]
+          elsif options[:comply].is_a? Hash
+            options[:comply].each do |protocol, committees|
+              [committees].flatten.each do |committee|
+                @deliberations[goal].compliance(committee).include?(protocol) or raise ::Leap::NoSolutionError, :goal => committee, :deliberation => @deliberations[goal]
+              end
+            end
+            Leap.log.decision "Success", goal
           else
             Leap.log.decision "Success", goal
             @deliberations[goal]

@@ -161,15 +161,50 @@ class TestLeap < Test::Unit::TestCase
   context 'A decision without a master committee' do
     setup do
       @idea = Idea.new
+      @bad_idea = Idea.new(100, 10) # gotchas, caveats
     end
     
     should 'still compute' do
       @idea.value
-      assert_equal({:cost => 0, :benefit => 1}, @idea.deliberations[:value].characteristics)
+      assert_equal({:cost => 0, :benefit => 9, :caveats => 1, :hangups => 0}, @idea.deliberations[:value].characteristics)
     end
     
     should 'provide easy access to committee reports' do
       assert_equal 0, @idea.value[:cost]
+    end
+    
+    should 'provide compliance specific to a certain conclusion' do
+      # If hangups does not comply with common sense, neither should cost
+      assert_equal [], @idea.deliberations[:value].compliance(:hangups)
+      assert_equal [], @idea.deliberations[:value].compliance(:benefit)
+      assert_equal [], @idea.deliberations[:value].compliance(:cost)
+      
+      # If hangups complies with common sense, cost should also
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:hangups)
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
+      
+      # User input complies with all standards
+      assert_equal [:wisdom], @bad_idea.deliberations[:value].compliance(:benefit)
+    end
+    
+    should 'only return compliant values when compliance is requested and endpoint is unknown' do
+      # Nothing complies
+      assert_equal({}, @idea.value(:comply => :common_sense).characteristics)
+      
+      # Everything but benefit complies
+      assert_equal({:gotchas => 100, :caveats => 10, :hangups => 100, :cost => 100}, @bad_idea.value(:comply => :common_sense).characteristics)
+    end
+    
+    should 'return an error message when known endpoint cannot be achieved' do
+      exception = assert_raise ::Leap::NoSolutionError do
+        @idea.value(:comply => { :common_sense => :benefit })
+      end
+      assert_match(/No solution was found for "benefit"/, exception.message)
+      
+      exception = assert_raise ::Leap::NoSolutionError do
+        @bad_idea.value(:comply => { :common_sense => :benefit })
+      end
+      assert_match(/No solution was found for "benefit"/, exception.message)
     end
   end
 end

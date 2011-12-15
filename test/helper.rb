@@ -120,14 +120,29 @@ class Seamus
   end
 end
 
-class Idea
+class Idea < Struct.new(:gotchas, :caveats)
+  def to_hash() Hash[members.zip(values)].reject {|_,v| v.nil?} end
+  
   include Leap
-  decide :value do
+  decide :value, :with => :to_hash do
     committee :cost do
-      quorum('default') {0}
+      quorum 'based on estimate of hangups', :needs => :hangups, :complies => :common_sense do |characteristics|
+        characteristics[:hangups]
+      end
     end
     committee :benefit do
+      quorum 'based on caveats', :needs => :caveats, :complies => :wisdom do |characteristics|
+        10 - characteristics[:caveats]
+      end
+    end
+    committee :caveats do
       quorum('default') {1}
+    end
+    committee :hangups do
+      quorum 'based on estimate of gotchas', :needs => :gotchas, :complies => :common_sense do |characteristics|
+        characteristics[:gotchas]
+      end
+      quorum('default') {0}
     end
   end
 end
