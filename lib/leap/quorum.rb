@@ -46,8 +46,10 @@ module Leap
     # @param [Hash] characteristics
     # @return The methodology's result
     def acknowledge(characteristics, considerations)
-      considerations.unshift characteristics
-      process.call(*considerations[0...process.arity])
+      Leap.instrument.quorum name do
+        considerations.unshift characteristics
+        process.call(*considerations[0...process.arity])
+      end
     end
     
     # All characteristics either needed or wanted by the quorum.

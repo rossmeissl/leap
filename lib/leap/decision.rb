@@ -37,12 +37,14 @@ module Leap
       Leap.log.decision "Initial characteristics: #{characteristics.inspect}", goal
       options = considerations.extract_options!
       committees.reject { |c| characteristics.keys.include? c.name }.reverse.inject(Deliberation.new(characteristics)) do |deliberation, committee|
-        if report = committee.report(deliberation.characteristics, considerations, options)
-          Leap.log.committee "Success", committee.name
-          deliberation.reports.unshift report
-          deliberation.characteristics[committee.name] = report.conclusion
+        Leap.instrument.committee committee.name do
+          if report = committee.report(deliberation.characteristics, considerations, options)
+            Leap.log.committee "Success", committee.name
+            deliberation.reports.unshift report
+            deliberation.characteristics[committee.name] = report.conclusion
+          end
+          Leap.log.decision "Updated characteristics: #{deliberation.characteristics.inspect}", goal
         end
-        Leap.log.decision "Updated characteristics: #{deliberation.characteristics.inspect}", goal
         deliberation
       end
     end

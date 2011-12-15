@@ -11,13 +11,13 @@ module Leap
 
   # Returns the logger object if logging is enabled
   def log?
-    @@logger
+    defined?(@@logger)
   end
   module_function :log?
 
   # Returns the logging object--or a "black hole" logger if logging is not enabled.
   def log
-    defined?(@@logger) ? @@logger : @@shredder ||= Shredder.new 
+   log? ? @@logger : @@shredder ||= Shredder.new 
   end
   module_function :log
 
