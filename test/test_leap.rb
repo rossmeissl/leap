@@ -197,12 +197,12 @@ class TestLeap < Test::Unit::TestCase
     
     should 'return an error message when known endpoint cannot be achieved' do
       exception = assert_raise ::Leap::NoSolutionError do
-        @idea.value(:comply => :common_sense, :endpoint => :benefit)
+        @idea.value(:comply => { :common_sense => :benefit })
       end
       assert_match(/No solution was found for "benefit"/, exception.message)
       
       exception = assert_raise ::Leap::NoSolutionError do
-        @bad_idea.value(:comply => :common_sense, :endpoint => :benefit)
+        @bad_idea.value(:comply => { :common_sense => :benefit })
       end
       assert_match(/No solution was found for "benefit"/, exception.message)
     end
