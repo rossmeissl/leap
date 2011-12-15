@@ -166,7 +166,7 @@ class TestLeap < Test::Unit::TestCase
     
     should 'still compute' do
       @idea.value
-      assert_equal({:cost => 0, :benefit => 1, :caveats => 1, :hangups => 0, :gotchas => nil}, @idea.deliberations[:value].characteristics)
+      assert_equal({:cost => 0, :benefit => 9, :caveats => 1, :hangups => 0}, @idea.deliberations[:value].characteristics)
     end
     
     should 'provide easy access to committee reports' do
