@@ -187,12 +187,24 @@ class TestLeap < Test::Unit::TestCase
       assert_equal [:wisdom], @bad_idea.deliberations[:value].compliance(:benefit)
     end
     
-    should 'provide details about the impossibility of a difficult decision' do
+    should 'only return compliant values when compliance is requested and endpoint is unknown' do
+      # Nothing complies
+      assert_equal({}, @idea.value(:comply => :common_sense).characteristics)
+      
+      # Everything but benefit complies
+      assert_equal({:gotchas => 100, :caveats => 10, :hangups => 100, :cost => 100}, @bad_idea.value(:comply => :common_sense).characteristics)
+    end
+    
+    should 'return an error message when known endpoint cannot be achieved' do
       exception = assert_raise ::Leap::NoSolutionError do
-        @idea.value :comply => :common_sense
+        @idea.value(:comply => :common_sense, :endpoint => :benefit)
       end
-      assert_match(/No solution was found for "cost"/, exception.message)
-      assert_match(/benefit: 1, hangups: 0/, exception.message)
+      assert_match(/No solution was found for "benefit"/, exception.message)
+      
+      exception = assert_raise ::Leap::NoSolutionError do
+        @bad_idea.value(:comply => :common_sense, :endpoint => :benefit)
+      end
+      assert_match(/No solution was found for "benefit"/, exception.message)
     end
   end
 end
