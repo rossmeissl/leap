@@ -49,7 +49,7 @@ module Leap
     private
     
     def instrument(&blk)
-      Benchmark.measure(&blk)
+      'Completed in ' + Benchmark.measure(&blk).format('%10.6r').gsub(/[()]/,'').strip + 's'
     end
   end
 
