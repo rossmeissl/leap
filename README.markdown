@@ -256,6 +256,34 @@ and then perform your decision with a protocol constraint:
 
 You can name your protocols how ever you want; they just have to match between the quorum assertions and the decision option.
 
+## Logging
+
+You can follow along with Leap's computation process by enabling detailed logging with
+
+``` ruby
+Leap.log!
+```
+
+By default, after being enabled, Leap will log to `Logger.new($stdout)`, per Ruby convention. If you have custom logging needs, use
+
+``` ruby
+Leap.log!(my_logging_object)
+```
+
+Make sure your logging object (`my_logging_object` in this example) provides a `#info` method.
+
+## Instrumentation
+
+You can time Leap activity by enabling instrumentation:
+
+``` ruby
+Leap.instrument!
+```
+
+Leap uses `Benchmark.measure` internally and displays timings in standard `Benchmark::Tms` format.
+
+Enabling instrumentation automatically enables logging.
+
 ## Internals
 
 Normally you'll construct your decision strategies using `decide :foo . . . end` blocks and perform them using the resulting `#foo` methods, but sometimes you'll want access to Leap's internals.
