@@ -121,7 +121,7 @@ class Seamus
 end
 
 class Idea < Struct.new(:gotchas, :caveats)
-  def to_hash() Hash[members.zip(values)] end
+  def to_hash() Hash[members.zip(values)].reject {|_,v| !v} end
   
   include Leap
   decide :value, :with => :to_hash do
