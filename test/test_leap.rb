@@ -176,7 +176,7 @@ class TestLeap < Test::Unit::TestCase
     should 'provide compliance specific to a certain conclusion' do
       # If hangups does not comply with common sense, neither should cost
       assert_equal [], @idea.deliberations[:value].compliance(:hangups)
-      assert_equal [], @idea.deliberations[:value].compliance(:benefits)
+      assert_equal [], @idea.deliberations[:value].compliance(:benefit)
       assert_equal [], @idea.deliberations[:value].compliance(:cost)
       
       # If hangups complies with common sense, cost should also
@@ -184,7 +184,7 @@ class TestLeap < Test::Unit::TestCase
       assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
       
       # User input complies with all standards
-      assert_equal [:wisdom], @bad_idea.deliberations[:value].compliance(:benefits)
+      assert_equal [:wisdom], @bad_idea.deliberations[:value].compliance(:benefit)
     end
     
     should 'provide details about the impossibility of a difficult decision' do
