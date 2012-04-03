@@ -43,13 +43,28 @@ module Leap
     # @param [String, Symbol] name The quorum's name
     # @param [Proc] blk A proc wrapping the quorum activity to instrument
     def quorum(name, &blk)
-      Leap.log.quorum instrument(&blk), name
+      message, result = instrument(true, &blk) 
+      Leap.log.quorum message, name
+      result
     end
-    
+
     private
     
-    def instrument(&blk)
-      'Completed in ' + Benchmark.measure(&blk).format('%10.6r').gsub(/[()]/,'').strip + 's'
+    # Give Procs the capacity to remember their result.
+    module Registered
+      # Result storage
+      attr_reader :result
+
+      # Override Proc#call here to ensure storage
+      def call
+        @result = super
+      end
+    end
+    
+    def instrument(return_result_of_measured_block = false, &blk)
+      blk = blk.dup.extend Registered
+      message = 'Completed in ' + Benchmark.measure { blk.call }.format('%10.6r').gsub(/[()]/,'').strip + 's'
+      return_result_of_measured_block ? [message, blk.result] : message
     end
   end
 
