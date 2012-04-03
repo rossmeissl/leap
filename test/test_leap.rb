@@ -121,6 +121,23 @@ class TestLeap < Test::Unit::TestCase
       assert_match(/magic_float: ancient recipe, name: provided as input/, exception.message)
     end
   end
+
+  context "Instrumentation" do
+    setup do
+      @old_stdout = $stdout
+      $stdout = StringIO.new
+      Leap.instrument!
+    end
+    should 'not interfere with computation' do
+      @person = Person.new :age => 5
+      assert_equal 36, @person.lucky_number.to_i
+    end
+    teardown do
+      $stdout = @old_stdout
+      Leap.remove_class_variable :@@logger
+      Leap.remove_class_variable :@@whip
+    end
+  end
   
   context 'Seamus deciding about whether he can commit to a date' do
     setup do
