@@ -223,5 +223,9 @@ class TestLeap < Test::Unit::TestCase
       end
       assert_match(/No solution was found for "benefit"/, exception.message)
     end
+
+    should 'return compliant values when compliance is requested for specific committees' do
+      assert_equal :maybe, Seamus.new.can_i_commit_to_that_date(:comply => { :bent => :can_i_commit_to_that_date })
+    end
   end
 end

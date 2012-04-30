@@ -49,6 +49,7 @@ module Leap
       Leap.log.committee "Convening committee", name
       quorums.each do |quorum|
         Leap.log.quorum "Assessing quorum", quorum.name
+        # option[:comply] might be a hash
         next unless quorum.satisfied_by? characteristics and quorum.complies_with? Array.wrap(options[:comply])
         Leap.log.quorum "Acknowledging quorum", quorum.name
         if conclusion = quorum.acknowledge(characteristics.slice(*quorum.characteristics), considerations.dup)
