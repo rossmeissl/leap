@@ -7,7 +7,7 @@ elsif Bundler.definition.specs['ruby-debug'].first
   require 'ruby-debug'
 end
 
-require 'minitest/spec'
+require 'minitest/unit'
 require 'minitest/autorun'
 require 'minitest/reporters'
 MiniTest::Unit.runner = MiniTest::SuiteRunner.new
