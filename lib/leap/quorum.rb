@@ -42,7 +42,7 @@ module Leap
       case guidelines
       when Hash
         inversion = guidelines.inject({}) do |memo, pair|
-          protocol, committees = pair.first, pair.last
+          protocol, committees = pair
           Array.wrap(committees).each do |committee|
             if memo[committee]
               memo[committee] << protocol
