@@ -217,8 +217,8 @@ describe Leap do
       end.must_raise(::Leap::NoSolutionError, /No solution was found for "benefit"/)
     end
 
-    should 'return compliant values when compliance is requested for specific committees' do
-      assert_equal 100, @bad_idea.value(:comply => { :common_sense => :cost })[:cost]
+    it 'return compliant values when compliance is requested for specific committees' do
+      @bad_idea.value(:comply => { :common_sense => :cost })[:cost].must_equal 100
     end
   end
 end
