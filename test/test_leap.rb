@@ -225,7 +225,7 @@ class TestLeap < Test::Unit::TestCase
     end
 
     should 'return compliant values when compliance is requested for specific committees' do
-      assert_equal :maybe, Seamus.new.can_i_commit_to_that_date(:comply => { :bent => :can_i_commit_to_that_date })
+      assert_equal 100, @bad_idea.value(:comply => { :common_sense => :cost })[:cost]
     end
   end
 end
