@@ -1,22 +1,21 @@
 require 'rubygems'
-require 'bundler'
-Bundler.setup
-require 'test/unit'
-require 'shoulda'
-require 'charisma'
-require 'active_support/version'
-%w{
-  active_support/core_ext/hash/except
-}.each do |active_support_3_requirement|
-  require active_support_3_requirement
-end if ActiveSupport::VERSION::MAJOR == 3
+require 'bundler/setup'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'leap'))
-
-class Test::Unit::TestCase
+if Bundler.definition.specs['debugger'].first
+  require 'debugger'
+elsif Bundler.definition.specs['ruby-debug'].first
+  require 'ruby-debug'
 end
+
+require 'minitest/spec'
+require 'minitest/autorun'
+require 'minitest/reporters'
+MiniTest::Unit.runner = MiniTest::SuiteRunner.new
+MiniTest::Unit.runner.reporters << MiniTest::Reporters::SpecReporter.new
+
+require 'charisma'
+
+require 'leap'
 
 class Person
   attr_reader :name

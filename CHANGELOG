@@ -3,3 +3,4 @@ unreleased
 * Enhancements
 
   * Stop requiring blockenspiel - just instance_eval is enough
+  * Switch to minitest
