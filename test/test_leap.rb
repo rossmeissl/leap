@@ -6,12 +6,12 @@ describe Leap do
       @person = Person.new
     end
     
-    it 'still have a lucky number' do
-      @person.lucky_number.must_equal 0
+    it 'still has a lucky number' do
+      assert_equal 0, @person.lucky_number
     end
     
-    it 'naturally receive an International Psychics Association-compliant lucky number' do
-      @person.deliberations[:lucky_number].compliance.must_equal [:ipa]
+    it 'naturally receives an International Psychics Association-compliant lucky number' do
+      assert_equal [:ipa], @person.deliberations[:lucky_number].compliance
     end
   end
   
@@ -20,21 +20,21 @@ describe Leap do
       @person = Person.new :age => 5
     end
     
-    it 'indeed have a lucky number' do
-      @person.lucky_number.must_equal 36
+    it 'indeed has a lucky number' do
+      assert_equal 36, @person.lucky_number
     end
     
-    it 'nevertheless remember how his lucky number was determined' do
-      @person.deliberations[:lucky_number].characteristics.must_equal(:magic_integer => 6, :lucky_number => 36, :age => 5, :litmus => {})
-      @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :magic_integer }.quorum.name.must_equal 'ninja style'
+    it 'nevertheless remembers how his lucky number was determined' do
+      assert_equal({:magic_integer => 6, :lucky_number => 36, :age => 5, :litmus => {}}, @person.deliberations[:lucky_number].characteristics)
+      assert_equal 'ninja style', @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :magic_integer }.quorum.name
     end
     
-    it 'only give quorums what they ask for' do
-      @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :litmus }.conclusion.must_equal({})
+    it 'only gives quorums what they ask for' do
+      assert_equal({}, @person.deliberations[:lucky_number].reports.find{ |r| r.committee.name == :litmus }.conclusion)
     end
     
-    it 'not receive an International Psychics Association-compliant lucky number unless he asks for it' do
-      @person.deliberations[:lucky_number].compliance.must_equal []
+    it "doesn't receive an International Psychics Association-compliant lucky number unless he asks for it" do
+      assert_equal [], @person.deliberations[:lucky_number].compliance
     end
   end
   
@@ -43,8 +43,8 @@ describe Leap do
       @person = Person.new :magic_integer => 42, :age => 5
     end
     
-    it 'be able to use his own magic integer in determining his lucky number' do
-      @person.lucky_number.must_equal 1764
+    it 'can use his own magic integer in determining his lucky number' do
+      assert_equal 1764, @person.lucky_number
     end
   end
   
@@ -53,12 +53,12 @@ describe Leap do
       @person = Person.new :name => 'Matz'
     end
     
-    it 'have access to the super magic method' do
-      @person.lucky_number.must_equal 1
+    it 'has access to the super magic method' do
+      assert_equal 1, @person.lucky_number
     end
     
-    it 'be able to stay in compliance with International Psychics Association guidelines' do
-      @person.lucky_number(:comply => :ipa).must_equal 0
+    it 'can stay in compliance with International Psychics Association guidelines' do
+      assert_equal 0, @person.lucky_number(:comply => :ipa)
     end
   end
   
@@ -67,8 +67,8 @@ describe Leap do
       @place = Place.new
     end
     
-    it 'have decent weather' do
-      @place.weather.must_equal :decent
+    it 'has decent weather' do
+      assert_equal :decent, @place.weather
     end
   end
   
@@ -77,8 +77,8 @@ describe Leap do
       @place = Place.new :name => 'Vermont', :seasonality => { :summer => :warm, :winter => :cold }
     end
     
-    it 'be warm in the summer' do
-      @place.weather(:summer).must_equal :warm
+    it 'is warm in the summer' do
+      assert_equal :warm, @place.weather(:summer)
     end
   end
   
@@ -88,8 +88,8 @@ describe Leap do
       @thing.anything rescue nil
     end
     
-    it 'have proper implicit characteristics' do
-      @thing.deliberations[:anything].characteristics.must_equal Hash.new
+    it 'has proper implicit characteristics' do
+      assert_equal Hash.new, @thing.deliberations[:anything].characteristics
     end
   end
   
@@ -98,10 +98,10 @@ describe Leap do
       @thing = Thing.new
     end
     
-    it 'be impossible to make' do
-      lambda do
+    it 'is impossible to make' do
+      assert_raises(::Leap::NoSolutionError, /No solution was found for "anything"/) do
         @thing.anything
-      end.must_raise(::Leap::NoSolutionError, /No solution was found for "anything"/)
+      end
     end
   end
   
@@ -110,10 +110,10 @@ describe Leap do
       @person = Person.new :name => 'Bozo'
     end
     
-    it 'provide details about its apparent impossibility' do
-      lambda do
+    it 'provides details about its apparent impossibility' do
+      assert_raises(::Leap::NoSolutionError, /No solution was found for "lucky_number".*magic_float: ancient recipe, name: provided as input/) do
         @person.lucky_number :comply => :zeus
-      end.must_raise(::Leap::NoSolutionError, /No solution was found for "lucky_number".*magic_float: ancient recipe, name: provided as input/)
+      end
     end
   end
 
@@ -128,9 +128,9 @@ describe Leap do
       Leap.send :remove_class_variable, :@@logger
       Leap.send :remove_class_variable, :@@whip
     end
-    it 'not interfere with computation' do
+    it "doesn't interfere with computation" do
       @person = Person.new :age => 5
-      @person.lucky_number.to_i.must_equal 36
+      assert_equal 36, @person.lucky_number.to_i
     end
   end
   
@@ -139,18 +139,18 @@ describe Leap do
       @seamus = Seamus.new
     end
     
-    it 'work for most people' do
-      @seamus.can_i_commit_to_that_date.must_equal :maybe
+    it 'works for most people' do
+      assert_equal :maybe, @seamus.can_i_commit_to_that_date
     end
     
-    it 'work for BenT, who is easygoing' do
-      @seamus.can_i_commit_to_that_date(:comply => :bent).must_equal :maybe
+    it 'works for BenT, who is easygoing' do
+      assert_equal :maybe, @seamus.can_i_commit_to_that_date(:comply => :bent)
     end
     
-    it 'never work for andy' do
-      lambda do
+    it 'never works for andy' do
+      assert_raises ::Leap::NoSolutionError do
         @seamus.can_i_commit_to_that_date(:comply => :andy)
-      end.must_raise(::Leap::NoSolutionError)
+      end
     end
   end
   
@@ -165,8 +165,8 @@ describe Leap do
       end
     end
     
-    it 'remember options that it was given when it was created' do
-      Owl.decisions[:eye_size].committees.first.options[:measures].must_equal :length
+    it 'remembers options that it was given when it was created' do
+      assert_equal :length, Owl.decisions[:eye_size].committees.first.options[:measures]
     end
   end
   
@@ -176,49 +176,49 @@ describe Leap do
       @bad_idea = Idea.new(100, 10) # gotchas, caveats
     end
     
-    it 'still compute' do
+    it 'still computes' do
       @idea.value
-      @idea.deliberations[:value].characteristics.must_equal(:cost => 0, :benefit => 9, :caveats => 1, :hangups => 0)
+      assert_equal({:cost => 0, :benefit => 9, :caveats => 1, :hangups => 0}, @idea.deliberations[:value].characteristics)
     end
     
-    it 'provide easy access to committee reports' do
-      @idea.value[:cost].must_equal 0
+    it 'provides easy access to committee reports' do
+      assert_equal 0, @idea.value[:cost]
     end
     
-    it 'provide compliance specific to a certain conclusion' do
+    it 'provides compliance specific to a certain conclusion' do
       # If hangups does not comply with common sense, neither should cost
-      @idea.deliberations[:value].compliance(:hangups).must_equal []
-      @idea.deliberations[:value].compliance(:benefit).must_equal []
-      @idea.deliberations[:value].compliance(:cost).must_equal []
+      assert_equal [], @idea.deliberations[:value].compliance(:hangups)
+      assert_equal [], @idea.deliberations[:value].compliance(:benefit)
+      assert_equal [], @idea.deliberations[:value].compliance(:cost)
       
       # If hangups complies with common sense, cost should also
-      @bad_idea.deliberations[:value].compliance(:hangups).must_equal [:common_sense]
-      @bad_idea.deliberations[:value].compliance(:cost).must_equal [:common_sense]
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:hangups)
+      assert_equal [:common_sense], @bad_idea.deliberations[:value].compliance(:cost)
       
       # User input complies with all standards
-      @bad_idea.deliberations[:value].compliance(:benefit).must_equal [:wisdom]
+      assert_equal [:wisdom], @bad_idea.deliberations[:value].compliance(:benefit)
     end
     
-    it 'only return compliant values when compliance is requested and endpoint is unknown' do
+    it 'only returns compliant values when compliance is requested and endpoint is unknown' do
       # Nothing complies
-      @idea.value(:comply => :common_sense).characteristics.must_equal({})
+      assert_equal({}, @idea.value(:comply => :common_sense).characteristics)
       
       # Everything but benefit complies
-      @bad_idea.value(:comply => :common_sense).characteristics.must_equal(:gotchas => 100, :caveats => 10, :hangups => 100, :cost => 100)
+      assert_equal({:gotchas => 100, :caveats => 10, :hangups => 100, :cost => 100}, @bad_idea.value(:comply => :common_sense).characteristics)
     end
     
-    it 'return an error message when known endpoint cannot be achieved' do
-      lambda do
+    it 'returns an error message when known endpoint cannot be achieved' do
+      assert_raises(::Leap::NoSolutionError, /No solution was found for "benefit"/) do
         @idea.value(:comply => { :common_sense => :benefit })
-      end.must_raise(::Leap::NoSolutionError, /No solution was found for "benefit"/)
+      end
       
-      lambda do
+      assert_raises(::Leap::NoSolutionError, /No solution was found for "benefit"/) do
         @bad_idea.value(:comply => { :common_sense => :benefit })
-      end.must_raise(::Leap::NoSolutionError, /No solution was found for "benefit"/)
+      end
     end
 
-    it 'return compliant values when compliance is requested for specific committees' do
-      @bad_idea.value(:comply => { :common_sense => :cost })[:cost].must_equal 100
+    it 'returns compliant values when compliance is requested for specific committees' do
+      assert_equal 100, @bad_idea.value(:comply => { :common_sense => :cost })[:cost]
     end
   end
 end
