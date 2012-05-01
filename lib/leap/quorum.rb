@@ -36,10 +36,32 @@ module Leap
     end
     
     # Does the quorum comply with the given set of protocols?
-    # @param [Array] guideines The list of protocols we're for which we're checking compliance.
+    # @param [Array, Hash, Object] guidelines The list of protocols for which we're checking compliance.
     # @return [TrueClass, NilClass]
     def complies_with?(guidelines)
-      (guidelines - compliance).empty?
+      case guidelines
+      when Hash
+        inversion = guidelines.inject({}) do |memo, pair|
+          protocol, committees = pair
+          Array.wrap(committees).each do |committee|
+            if memo[committee]
+              memo[committee] << protocol
+            else
+              memo[committee] = [protocol]
+            end
+          end
+          memo
+        end
+        inversion.values.any? do |committee_guidelines|
+          (committee_guidelines - compliance).empty?
+        end
+      when Array
+        (guidelines - compliance).empty?
+      when NilClass
+        true
+      else
+        compliance.include? guidelines
+      end
     end
     
     # Perform the quorum's methodology using the given characteristics.

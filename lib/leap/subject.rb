@@ -69,6 +69,7 @@ module Leap
             end
           end
           Leap.log.decision "Success", goal
+          @deliberations[goal]
         else
           Leap.log.decision "Success", goal
           @deliberations[goal]

@@ -223,5 +223,9 @@ class TestLeap < Test::Unit::TestCase
       end
       assert_match(/No solution was found for "benefit"/, exception.message)
     end
+
+    should 'return compliant values when compliance is requested for specific committees' do
+      assert_equal 100, @bad_idea.value(:comply => { :common_sense => :cost })[:cost]
+    end
   end
 end
