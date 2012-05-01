@@ -48,8 +48,6 @@ module Leap
       end
     end
     
-    include ::Blockenspiel::DSL
-
     # Define a committee within the decision.
     #
     # Used within a <tt>Leap::Subject#decide</tt> block to define a new committee. See <tt>Leap::Committee</tt> for details.
@@ -58,7 +56,7 @@ module Leap
     def committee(name, options = {}, &blk)
       committee = ::Leap::Committee.new(name, options)
       @committees << committee
-      ::Blockenspiel.invoke blk, committee
+      committee.instance_eval(&blk)
     end
   end
 end

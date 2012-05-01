@@ -59,8 +59,6 @@ module Leap
       nil
     end
     
-    include ::Blockenspiel::DSL
-    
     # Defines a quorum within this committee.
     #
     # A quorum encapsulate a specific methodology for drawing the committe's conclusion.

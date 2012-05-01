@@ -48,7 +48,7 @@ module Leap
     # @see Leap::ImplicitAttributes
     def decide(goal, options = {}, &blk)
       decisions[goal] = ::Leap::Decision.new goal, options
-      Blockenspiel.invoke(blk, decisions[goal])
+      decisions[goal].instance_eval(&blk)
       define_method goal do |*considerations|
         decision = self.class.decisions[goal]
         options = considerations.extract_options!
