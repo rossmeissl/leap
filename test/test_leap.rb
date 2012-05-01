@@ -125,8 +125,8 @@ describe Leap do
     end
     after do
       $stdout = @old_stdout
-      Leap.remove_class_variable :@@logger
-      Leap.remove_class_variable :@@whip
+      Leap.send :remove_class_variable, :@@logger
+      Leap.send :remove_class_variable, :@@whip
     end
     it 'not interfere with computation' do
       @person = Person.new :age => 5

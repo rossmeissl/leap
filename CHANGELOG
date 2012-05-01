@@ -4,3 +4,4 @@ unreleased
 
   * Stop requiring blockenspiel - just instance_eval is enough
   * Switch to minitest
+  * Test on MRI 1.8, MRI 1.9, and JRuby 1.6.7+
