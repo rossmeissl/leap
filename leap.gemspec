@@ -23,5 +23,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '>=2.3.4'
   # sabshere 1/27/11 for activesupport - http://groups.google.com/group/ruby-bundler/browse_thread/thread/b4a2fc61ac0b5438
   s.add_dependency 'i18n'
-  s.add_dependency 'builder'
 end
